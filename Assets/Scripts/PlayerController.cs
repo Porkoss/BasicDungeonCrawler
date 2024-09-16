@@ -72,9 +72,6 @@ public class PlayerController : MonoBehaviour
         Attacks();
 
         followingCamera.transform.position=transform.position + new Vector3(0,8,-5);
-
-        
-
     }
 
     void Jumps(){
@@ -102,9 +99,10 @@ public class PlayerController : MonoBehaviour
     }
 
     void Attacks(){
-        if(Attack.IsPressed()){
+        if(Attack.IsPressed() && weapon.CanAttack()){
             weapon.GetComponent<Weapon>().Attacks();
             Debug.Log("Attacking");
+            animator.SetTrigger("Attacks");
         }
     }
 
@@ -135,7 +133,10 @@ public class PlayerController : MonoBehaviour
         bHasPowerUp=false;
     }
 
-
+    bool AnimatorIsPlaying(){
+    return animator.GetCurrentAnimatorStateInfo(0).length >
+           animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }
 
     
 }
