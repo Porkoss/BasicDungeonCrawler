@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIHandler : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class UIHandler : MonoBehaviour
     public TextMeshProUGUI textHealth;
 
     public TextMeshProUGUI textWave;
+
+    public GameObject gameOverText;
 
     public GameObject player;
 
@@ -28,6 +31,11 @@ public class UIHandler : MonoBehaviour
     }
 
     public void GameOver(){
-        ///gameOverText activation and retry button 
+        ///gameOverText activation and retry button
+        gameOverText.SetActive(true);
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }

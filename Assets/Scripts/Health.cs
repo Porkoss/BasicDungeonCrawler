@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
     public float health=1;
 
     public float maxHealth=1;
+    
 
     public SpawnManager spawnManager;
 
@@ -33,7 +34,13 @@ public class Health : MonoBehaviour
 
     public void GameOver(){
         GameObject.Find("Player").GetComponent<PlayerController>().GameOver();
-        GameObject.Find("Canvas").GetComponent<UIHandler>().GameOver();)
+        GameObject.Find("Canvas").GetComponent<UIHandler>().GameOver();
+
+    }
+
+    public void GainMaxHealth(int bonusHealth){
+        maxHealth+=bonusHealth;
+        health+=bonusHealth;
     }
 
 }

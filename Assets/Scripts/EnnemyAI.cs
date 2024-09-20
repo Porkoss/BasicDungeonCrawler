@@ -12,7 +12,6 @@ public class EnnemyAI : MonoBehaviour
 
     public Animator enemyAnimator;
     private Vector3 towardsPlayer;
-
     private bool bCanMove;
 
     public float attackDelay=0.5f;
