@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
 
     public GameObject chestPrefab;
 
-    public int waveCounter=1;
+    public int waveCounter=0;
 
     public bool bChestLooted=false;
 

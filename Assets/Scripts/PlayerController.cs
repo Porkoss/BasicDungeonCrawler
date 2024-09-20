@@ -133,4 +133,10 @@ public class PlayerController : MonoBehaviour
         bHasPowerUp=false;
     }
 
+    public void GameOver(){
+        Move.Disable();
+        Jump.Disable();
+        Attack.Disable();
+    }
+
 }

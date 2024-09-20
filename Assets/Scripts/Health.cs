@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
 
     public float maxHealth=1;
 
+    public SpawnManager spawnManager;
 
     public void TakeDamage(float damage)
     {
@@ -18,10 +19,21 @@ public class Health : MonoBehaviour
         Debug.Log(gameObject.name +" : " +health);
         if (health <= 0)
         {
+            if(!CompareTag("Player")){
             Die();
+            }
+            else{
+                GameOver();
+            }
         }
     }
     public void Die(){
-        Destroy(gameObject);
+            Destroy(gameObject);  
     }
+
+    public void GameOver(){
+        GameObject.Find("Player").GetComponent<PlayerController>().GameOver();
+        GameObject.Find("Canvas").GetComponent<UIHandler>().GameOver();)
+    }
+
 }
