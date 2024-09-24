@@ -42,7 +42,7 @@ public class SpawnManager : MonoBehaviour
         {
 
         
-            int ennemyCount=GameObject.FindObjectsOfType<EnnemyMovement>().Length;
+            int ennemyCount=GameObject.FindObjectsOfType<EnnemyAI>().Length;
             if(ennemyCount==0 && !bChestSpawned && !bChestLooted){
                 Instantiate(chestPrefab,player.transform.position+new Vector3(3,0,3),chestPrefab.transform.rotation);
                 bChestSpawned=true;
@@ -55,16 +55,25 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    Vector3 generateRandomPosition(float MaxRange){
+    Vector3 generateRandomPositionOnMesh(float MaxRange){
         float X=Random.Range(-MaxRange,MaxRange);
         float Z=Random.Range(-MaxRange,MaxRange);
-        return new Vector3(X,0,Z);
+        NavMeshHit hit;
+        
+        
+        if( NavMesh.SamplePosition(new Vector3(X,0,Z), out hit, 1.0f, NavMesh.AllAreas))
+        {
+            return new Vector3(X,0,Z);
+        }
+        else{
+            return generateRandomPositionOnMesh(MaxRange);
+        }
     }
 
     void SpawnWave(int number){
         for(int i=0;i<number;i++){
             int RandomEnemy=Random.Range(0,enemyPrefabs.Length);
-            Instantiate(enemyPrefabs[RandomEnemy],generateRandomPosition(MaxSpawnRange),enemyPrefabs[RandomEnemy].transform.rotation);
+            Instantiate(enemyPrefabs[RandomEnemy],generateRandomPositionOnMesh(MaxSpawnRange),enemyPrefabs[RandomEnemy].transform.rotation);
         }
         SpawnWeapon();
         waveCounter++;
@@ -73,7 +82,8 @@ public class SpawnManager : MonoBehaviour
     public void SpawnWeapon()
     {
         int RandomPowerUp=Random.Range(0,powerUpPrefabs.Length);
-        Instantiate(powerUpPrefabs[RandomPowerUp],generateRandomPosition(30f),powerUpPrefabs[RandomPowerUp].transform.rotation); 
+        
+        Instantiate(powerUpPrefabs[RandomPowerUp],generateRandomPositionOnMesh(MaxSpawnRange),powerUpPrefabs[RandomPowerUp].transform.rotation); 
         
     }
 

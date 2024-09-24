@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnnemyAI : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class EnnemyAI : MonoBehaviour
     private Vector3 towardsPlayer;
     public bool bCanMove;
 
-    
+    private  NavMeshAgent agent;
 
     public float attackDelay=0.5f;
 
@@ -22,6 +23,7 @@ public class EnnemyAI : MonoBehaviour
 
         void Start()
     {
+        agent=GetComponent<NavMeshAgent>();
         enemyController = GetComponent<CharacterController>();
         player=GameObject.Find("Player");
         bCanMove=true;
@@ -34,20 +36,14 @@ public class EnnemyAI : MonoBehaviour
         
         
         if(towardsPlayer.magnitude >= attackRange&&bCanMove){
-            Moves();
+            //Moves();
+            agent.SetDestination(player.transform.position);
         }
-        else{
-            
+        else if(bCanMove){
+            agent.SetDestination(transform.position);
             StartCoroutine(DelayAttacks());
             bCanMove=false;
         }
-    }
-
-
-    void Moves(){
-        
-        gameObject.transform.forward = towardsPlayer.normalized;
-        enemyController.Move(towardsPlayer.normalized*speed*Time.deltaTime);
     }
     void Attacks(){
         enemyAnimator.SetTrigger("Attacks");   
@@ -57,8 +53,5 @@ public class EnnemyAI : MonoBehaviour
         yield return new WaitForSeconds(attackDelay);
         Attacks();
     }
-
-
-
 
 }

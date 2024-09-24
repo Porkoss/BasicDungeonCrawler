@@ -607,6 +607,7 @@ GameObject:
   - component: {fileID: 5303255885037670137}
   - component: {fileID: 3634493775522853076}
   - component: {fileID: 63692570321627680}
+  - component: {fileID: 8177176097705403655}
   m_Layer: 0
   m_Name: Ennemy 2
   m_TagString: Enemy
@@ -774,6 +775,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropPrefabs:
   - {fileID: 1710415460035626178, guid: ad1ec14d18c76df4e96fc0ecc5f2f9d6, type: 3}
+--- !u!195 &8177176097705403655
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471678531015516614}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2661183057157255469
 GameObject:
   m_ObjectHideFlags: 0
