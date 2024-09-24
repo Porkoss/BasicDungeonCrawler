@@ -9,7 +9,7 @@ public class EnnemyAI : MonoBehaviour
     public float speed=1f;
     public float attackRange=1f;
     private GameObject player;
-    private CharacterController enemyController;
+    
 
     public Animator enemyAnimator;
     private Vector3 towardsPlayer;
@@ -24,7 +24,7 @@ public class EnnemyAI : MonoBehaviour
         void Start()
     {
         agent=GetComponent<NavMeshAgent>();
-        enemyController = GetComponent<CharacterController>();
+
         player=GameObject.Find("Player");
         bCanMove=true;
     }
