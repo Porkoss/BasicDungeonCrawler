@@ -25,8 +25,10 @@ public class EnemyAnimationHandler : MonoBehaviour
     }
     public void StopHitFrame(){
         bIsHitting=false;
-        ennemyAI.bCanMove=true;
+    }
 
+    public void StopAttack(){
+        ennemyAI.bCanMove=true;
     }
     public void CheckCollision() {
     // Assuming your player has a Collider with the tag "Player"
