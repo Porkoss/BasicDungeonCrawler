@@ -22,26 +22,37 @@ public class SpawnManager : MonoBehaviour
 
     public bool bChestSpawned=false;
 
+    private bool bIsGamePaused;
+
     void Start()
+    {
+        bIsGamePaused=true;
+    }
+    public void Launch()
     {
         SpawnWave(1);
         player=GameObject.Find("Player");
+        bIsGamePaused=false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        int ennemyCount=GameObject.FindObjectsOfType<EnnemyMovement>().Length;
-        if(ennemyCount==0 && !bChestSpawned && !bChestLooted){
-            Instantiate(chestPrefab,player.transform.position+new Vector3(3,0,3),chestPrefab.transform.rotation);
-            bChestSpawned=true;
-        }
-        if(bChestLooted)
+        if(!bIsGamePaused)
         {
-            SpawnWave(waveCounter);
-            bChestLooted=false;
-        }
 
+        
+            int ennemyCount=GameObject.FindObjectsOfType<EnnemyMovement>().Length;
+            if(ennemyCount==0 && !bChestSpawned && !bChestLooted){
+                Instantiate(chestPrefab,player.transform.position+new Vector3(3,0,3),chestPrefab.transform.rotation);
+                bChestSpawned=true;
+            }
+            if(bChestLooted)
+            {
+                SpawnWave(waveCounter);
+                bChestLooted=false;
+            }
+        }
     }
 
     Vector3 generateRandomPosition(float MaxRange){
@@ -55,10 +66,15 @@ public class SpawnManager : MonoBehaviour
             int RandomEnemy=Random.Range(0,enemyPrefabs.Length);
             Instantiate(enemyPrefabs[RandomEnemy],generateRandomPosition(MaxSpawnRange),enemyPrefabs[RandomEnemy].transform.rotation);
         }
-        int RandomPowerUp=Random.Range(0,powerUpPrefabs.Length);
-        Instantiate(powerUpPrefabs[RandomPowerUp],generateRandomPosition(MaxSpawnRange),powerUpPrefabs[RandomPowerUp].transform.rotation); 
+        SpawnWeapon();
         waveCounter++;
+    }
 
+    public void SpawnWeapon()
+    {
+        int RandomPowerUp=Random.Range(0,powerUpPrefabs.Length);
+        Instantiate(powerUpPrefabs[RandomPowerUp],generateRandomPosition(30f),powerUpPrefabs[RandomPowerUp].transform.rotation); 
+        
     }
 
 

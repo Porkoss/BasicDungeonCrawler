@@ -13,16 +13,23 @@ public class UIHandler : MonoBehaviour
 
     public GameObject gameOverText;
 
+    public GameObject startText;
+
     public GameObject player;
 
     private Health health;
 
     private SpawnManager spawnManager;
 
+    private PlayerController playerController;
+
+    
+
     void Start()
     {
         health=player.GetComponent<Health>();
         spawnManager=GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        playerController=player.GetComponent<PlayerController>();
     }
 
     void Update(){
@@ -37,5 +44,11 @@ public class UIHandler : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void LaunchButton(){
+        playerController.Launch();
+        spawnManager.Launch();
+        startText.SetActive(false);
     }
 }
