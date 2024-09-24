@@ -12,11 +12,13 @@ public class EnnemyAI : MonoBehaviour
 
     public Animator enemyAnimator;
     private Vector3 towardsPlayer;
-    private bool bCanMove;
+    public bool bCanMove;
+
+    
 
     public float attackDelay=0.5f;
 
-    private bool bIsAttacking=false;
+    
 
         void Start()
     {
@@ -54,8 +56,6 @@ public class EnnemyAI : MonoBehaviour
     IEnumerator DelayAttacks(){
         yield return new WaitForSeconds(attackDelay);
         Attacks();
-        bCanMove=true;
-        
     }
 
 

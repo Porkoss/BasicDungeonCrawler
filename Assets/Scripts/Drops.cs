@@ -12,7 +12,7 @@ public class Drops : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player")){
             other.GetComponent<Health>().GainMaxHealth(HealthGained);
-            destroy(gameObject);
+            Destroy(gameObject);
         }
     }    
 }

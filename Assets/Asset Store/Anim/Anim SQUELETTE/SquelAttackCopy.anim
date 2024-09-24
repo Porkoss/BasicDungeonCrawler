@@ -37358,7 +37358,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.7333333
+  - time: 1.3333334
     functionName: StopHitFrame
     data: 
     objectReferenceParameter: {fileID: 0}

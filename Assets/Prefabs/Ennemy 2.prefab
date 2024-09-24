@@ -606,6 +606,7 @@ GameObject:
   - component: {fileID: 1737007330421406297}
   - component: {fileID: 5303255885037670137}
   - component: {fileID: 3634493775522853076}
+  - component: {fileID: 63692570321627680}
   m_Layer: 0
   m_Name: Ennemy 2
   m_TagString: Enemy
@@ -694,6 +695,8 @@ MonoBehaviour:
   speed: 3
   attackRange: 2
   enemyAnimator: {fileID: 2538232370637789538}
+  bCanMove: 0
+  attackDelay: 0
 --- !u!65 &1737007330421406297
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -729,6 +732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   maxHealth: 1
+  dropsHandler: {fileID: 0}
+  spawnManager: {fileID: 0}
 --- !u!143 &3634493775522853076
 CharacterController:
   m_ObjectHideFlags: 0
@@ -755,6 +760,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &63692570321627680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471678531015516614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f4f0b5ab9726d4ca5f06fd51b7fd64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPrefabs:
+  - {fileID: 1710415460035626178, guid: ad1ec14d18c76df4e96fc0ecc5f2f9d6, type: 3}
 --- !u!1 &2661183057157255469
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4489055044107253868}
   - component: {fileID: 2538232370637789538}
-  - component: {fileID: 4448491340593473402}
+  - component: {fileID: 8946973531455741314}
   m_Layer: 0
   m_Name: Slash Advance
   m_TagString: Untagged
@@ -994,7 +1013,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4448491340593473402
+--- !u!114 &8946973531455741314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1007,7 +1026,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWeapon: {fileID: 0}
-  radius: 3
+  ennemyAI: {fileID: 4117198365174495747}
+  radius: 0.8
+  damage: 1
 --- !u!1 &3946255149984481677
 GameObject:
   m_ObjectHideFlags: 0

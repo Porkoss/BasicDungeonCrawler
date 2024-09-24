@@ -9,10 +9,15 @@ public class Health : MonoBehaviour
     public float health=1;
 
     public float maxHealth=1;
+
+    public DropsHandler dropsHandler;
     
 
     public SpawnManager spawnManager;
 
+    void Start(){
+        dropsHandler=GetComponent<DropsHandler>();
+    }
     public void TakeDamage(float damage)
     {
         
@@ -29,7 +34,9 @@ public class Health : MonoBehaviour
         }
     }
     public void Die(){
-            Destroy(gameObject);  
+        dropsHandler.GenerateDrops();
+        Destroy(gameObject);  
+
     }
 
     public void GameOver(){
@@ -38,7 +45,7 @@ public class Health : MonoBehaviour
 
     }
 
-    public void GainMaxHealth(int bonusHealth){
+    public void GainMaxHealth(float bonusHealth){
         maxHealth+=bonusHealth;
         health+=bonusHealth;
     }

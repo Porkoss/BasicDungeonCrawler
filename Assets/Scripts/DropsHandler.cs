@@ -5,25 +5,28 @@ using UnityEngine;
 public class DropsHandler : MonoBehaviour
 {
     // Start is called before the first frame update    
-    public GameObject dropPrefabs;
-    public bool IsDropping(){
-        if(Random.Range(0,1)<=Chance)
+    public GameObject[] dropPrefabs;
+
+    public bool IsDropping(Drops drop){
+        float dropRandom=Random.Range(0f,1);
+        if(dropRandom<=drop.Chance)
         {
             return true;
         }
+        return false;
     }
 
-    public bool GenerateDrops(){
-        for drop in dropList:
+    public void GenerateDrops(){
+        foreach (GameObject  drop in dropPrefabs)
         {
             Drops dropClass = drop.GetComponent<Drops>();
-            if(dropClass.IsDropping()){
+            if(IsDropping(dropClass)){
                 Instantiate(drop,RandomVector3(),drop.transform.rotation);
             }
         }  
     }
 
     public Vector3 RandomVector3(){
-        return new Vector3(Random.Range(0, 3)+transform.position.x,transform.position.y,RandomVector3.Range(0,3)+transform.position.z);
+        return new Vector3(Random.Range(0, 3)+transform.position.x,transform.position.y,Random.Range(0,3)+transform.position.z);
     }
 }
