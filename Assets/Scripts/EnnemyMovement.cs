@@ -19,7 +19,7 @@ public class EnnemyMovement : MonoBehaviour
     void Update()
     {
         Vector3 towardsPlayer=(player.transform.position-transform.position).normalized;
-               
+        gameObject.transform.forward = towardsPlayer;
         enemyController.Move(towardsPlayer*speed*Time.deltaTime);
         
     }

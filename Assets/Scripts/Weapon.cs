@@ -60,6 +60,7 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(Time.deltaTime*60);
         attackArea.gameObject.SetActive(false);
         gameObject.SetActive(false);
+        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SpawnWeapon();
     }
 
     public bool CanAttack(){

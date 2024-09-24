@@ -41,17 +41,22 @@ public class PlayerController : MonoBehaviour
     {
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
-        
+    }
+
+    public void Launch(){
+        Move.Enable();
+        Jump.Enable();
+        Attack.Enable();
     }
     
     private void  OnEnable()
     {
-        Move=playerControls.Player.Move;
-        Move.Enable();
-        Jump=playerControls.Player.Jump;
-        Jump.Enable();
+        Move=playerControls.Player.Move;      
+        Jump=playerControls.Player.Jump;        
         Attack=playerControls.Player.Fire;
-        Attack.Enable();
+        Move.Disable();
+        Jump.Disable();
+        Attack.Disable();
     }
     private void  OnDisable()
     {
@@ -131,6 +136,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator RemovePowerUp(){
         yield return new WaitForSeconds(100);
         bHasPowerUp=false;
+    }
+
+    public void GameOver(){
+        Move.Disable();
+        Jump.Disable();
+        Attack.Disable();
     }
 
 }

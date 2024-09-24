@@ -10,7 +10,14 @@ public class Health : MonoBehaviour
 
     public float maxHealth=1;
 
+    public DropsHandler dropsHandler;
+    
 
+    public SpawnManager spawnManager;
+
+    void Start(){
+        dropsHandler=GetComponent<DropsHandler>();
+    }
     public void TakeDamage(float damage)
     {
         
@@ -18,10 +25,29 @@ public class Health : MonoBehaviour
         Debug.Log(gameObject.name +" : " +health);
         if (health <= 0)
         {
+            if(!CompareTag("Player")){
             Die();
+            }
+            else{
+                GameOver();
+            }
         }
     }
     public void Die(){
-        Destroy(gameObject);
+        dropsHandler.GenerateDrops();
+        Destroy(gameObject);  
+
     }
+
+    public void GameOver(){
+        GameObject.Find("Player").GetComponent<PlayerController>().GameOver();
+        GameObject.Find("Canvas").GetComponent<UIHandler>().GameOver();
+
+    }
+
+    public void GainMaxHealth(float bonusHealth){
+        maxHealth+=bonusHealth;
+        health+=bonusHealth;
+    }
+
 }
