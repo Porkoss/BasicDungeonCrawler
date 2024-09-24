@@ -73,7 +73,7 @@ public class SpawnManager : MonoBehaviour
     public void SpawnWeapon()
     {
         int RandomPowerUp=Random.Range(0,powerUpPrefabs.Length);
-        Instantiate(powerUpPrefabs[RandomPowerUp],generateRandomPosition(30f),powerUpPrefabs[RandomPowerUp].transform.rotation); 
+        Instantiate(powerUpPrefabs[RandomPowerUp],generateRandomPosition(MaxSpawnRange),powerUpPrefabs[RandomPowerUp].transform.rotation); 
         
     }
 
