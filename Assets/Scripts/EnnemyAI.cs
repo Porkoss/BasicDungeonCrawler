@@ -12,7 +12,7 @@ public class EnnemyAI : MonoBehaviour
     
 
     public Animator enemyAnimator;
-    private Vector3 towardsPlayer;
+    public Vector3 towardsPlayer;
     public bool bCanMove;
 
     private  NavMeshAgent agent;
@@ -21,7 +21,7 @@ public class EnnemyAI : MonoBehaviour
 
     
 
-        void Start()
+    void Start()
     {
         agent=GetComponent<NavMeshAgent>();
 
@@ -41,11 +41,13 @@ public class EnnemyAI : MonoBehaviour
         }
         else if(bCanMove){
             agent.SetDestination(transform.position);
+            transform.forward=towardsPlayer.normalized;
             StartCoroutine(DelayAttacks());
             bCanMove=false;
+            
         }
     }
-    void Attacks(){
+    protected virtual void Attacks(){
         enemyAnimator.SetTrigger("Attacks");   
     }
 
