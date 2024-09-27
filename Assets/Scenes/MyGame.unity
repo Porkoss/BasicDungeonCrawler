@@ -290,7 +290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391, y: 145}
+  m_AnchoredPosition: {x: -377, y: 239.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &131569363
@@ -545,7 +545,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -392, y: 92}
+  m_AnchoredPosition: {x: -377, y: 187.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &430604510
@@ -2337,7 +2337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 2471678531015516614, guid: 1350dcc2f4ecab245a822dd646bed9a0, type: 3}
-  - {fileID: 2471678531015516614, guid: 1350dcc2f4ecab245a822dd646bed9a0, type: 3}
+  - {fileID: 5185563180801784583, guid: d9063579914573f4a82fae743655b600, type: 3}
   powerUpPrefabs:
   - {fileID: 1523501636870356823, guid: 6b080876e363024439ab5d34082686a0, type: 3}
   MaxSpawnRange: 5

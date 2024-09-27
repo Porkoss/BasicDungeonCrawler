@@ -34,7 +34,7 @@ public class UIHandler : MonoBehaviour
 
     void Update(){
         textHealth.SetText("Health: "+health.health);
-        textWave.SetText("Wave : "+spawnManager.waveCounter);
+        textWave.SetText("Wave : "+(spawnManager.waveCounter-1));
     }
 
     public void GameOver(){

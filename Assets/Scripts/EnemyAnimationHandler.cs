@@ -33,20 +33,25 @@ public class EnemyAnimationHandler : MonoBehaviour
     public void CheckCollision() {
     // Assuming your player has a Collider with the tag "Player"
     Collider[] hitColliders = Physics.OverlapSphere(enemyWeapon.transform.position,radius);
-    foreach (Collider hitCollider in hitColliders) {
-        if (hitCollider.CompareTag("Player")&&canHitPlayer) {
-            Health playerHealth= hitCollider.GetComponent<Health>();
-            playerHealth.TakeDamage(damage);
-            canHitPlayer=false;
+    foreach (Collider hitCollider in hitColliders) 
+        {
+            if (hitCollider.CompareTag("Player")&&canHitPlayer) {
+                Health playerHealth= hitCollider.GetComponent<Health>();
+                playerHealth.TakeDamage(damage);
+                canHitPlayer=false;
+            }
         }
     }
-}
     void Update(){
         if(bIsHitting&&canHitPlayer){
             CheckCollision();
             }
     }
 
+
+    void FireArrow(){
+        
+    }
     /*
     void OnDrawGizmos()
     {  

@@ -60,10 +60,20 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(Time.deltaTime*60);
         attackArea.gameObject.SetActive(false);
         gameObject.SetActive(false);
-        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SpawnWeapon();
+        GenerateWeaponIfNoWeapon();
     }
 
     public bool CanAttack(){
         return bCanAttack;
+    }
+
+
+    void GenerateWeaponIfNoWeapon(){
+        
+        int weaponCount=GameObject.FindGameObjectsWithTag("PowerUp").Length;
+        if(weaponCount<1){
+            GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SpawnWeapon();
+        }
+        
     }
 }

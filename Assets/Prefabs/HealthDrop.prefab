@@ -14662,7 +14662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthGained: 1
-  Chance: 0.25
+  Chance: 0.5
 --- !u!135 &8367678746317508789
 SphereCollider:
   m_ObjectHideFlags: 0
