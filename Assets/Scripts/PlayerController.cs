@@ -35,12 +35,13 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     
-
+    private AudioSource swordSound;
     public Weapon weapon;
     private void Awake()
     {
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
+        swordSound=GetComponent<AudioSource>();
     }
 
     public void Launch(){
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour
             weapon.GetComponent<Weapon>().Attacks();
             Debug.Log("Attacking");
             animator.SetTrigger("Attacks");
+            swordSound.Play();
         }
     }
 
