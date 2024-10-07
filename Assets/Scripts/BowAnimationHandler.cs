@@ -7,6 +7,8 @@ public class BowAnimationHandler : MonoBehaviour
     public GameObject launchPoint;
     public GameObject arrowPrefab;
     public RangeEnemyAi rangeEnemyAi;
+
+    public Animator bowAnimator;
     // Start is called before the first frame update
     public void LaunchArrow(){
         Debug.Log("Fire Arrow");
@@ -15,6 +17,10 @@ public class BowAnimationHandler : MonoBehaviour
     }
     public void ArrowFired(){
         rangeEnemyAi.bCanMove=true;
+        bowAnimator.SetBool("Draws",false);
+    }
+    public void StartDrawing(){
+        bowAnimator.SetBool("Draws",true);
     }
 
 }
