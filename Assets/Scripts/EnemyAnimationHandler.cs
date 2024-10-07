@@ -26,7 +26,6 @@ public class EnemyAnimationHandler : MonoBehaviour
     public void StopHitFrame(){
         bIsHitting=false;
     }
-
     public void StopAttack(){
         ennemyAI.bCanMove=true;
     }
@@ -46,11 +45,6 @@ public class EnemyAnimationHandler : MonoBehaviour
         if(bIsHitting&&canHitPlayer){
             CheckCollision();
             }
-    }
-
-
-    void FireArrow(){
-        
     }
     /*
     void OnDrawGizmos()
