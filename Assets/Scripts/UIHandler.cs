@@ -15,6 +15,8 @@ public class UIHandler : MonoBehaviour
 
     public GameObject startText;
 
+    public GameObject tutoText;
+
     public GameObject player;
 
     private Health health;
@@ -50,5 +52,6 @@ public class UIHandler : MonoBehaviour
         playerController.Launch();
         spawnManager.Launch();
         startText.SetActive(false);
+        tutoText.SetActive(false);
     }
 }
