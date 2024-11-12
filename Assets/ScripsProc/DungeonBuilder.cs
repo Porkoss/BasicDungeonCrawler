@@ -18,6 +18,17 @@ public class DungeonBuilder : MonoBehaviour
     
     public GameObject Room4Opening;
 
+    public GameObject EndRoom;
+
+
+    public List<GameObject> decorationPrefabs;
+    public List<GameObject> trapPrefabs;
+    public List<GameObject> bonusPrefabs;
+    public List<GameObject> enemyPrefabs;
+    public List<GameObject> chestPrefabs;
+
+    public List<GridDataSO> gridDataList;
+
     public static int width=6; 
     public static int length=6; 
 
@@ -184,6 +195,72 @@ public class DungeonBuilder : MonoBehaviour
         }
     }
 
+    void PopulateRooms()
+    {
+        int randomIndex = Random.Range(0, gridDataList.Count);
+        GridDataSO selectedGrid = gridDataList[randomIndex];
+
+        for (int actualWidth = 0; actualWidth < width; actualWidth++)
+        {
+            for (int actualLength = 0; actualLength < length; actualLength++)
+            {
+                if (grid[actualWidth, actualLength] != 0)
+                {
+                    PopulateRoomWithObjects(selectedGrid, actualWidth, actualLength);
+                }
+            }
+        }
+    }
+
+    void PopulateRoomWithObjects(GridDataSO gridData, int roomX, int roomY)
+    {
+        string[] rows = gridData.gridText.Split('\n');
+        for (int y = 0; y < rows.Length; y++)
+        {
+            string row = rows[y];
+            for (int x = 0; x < row.Length; x++)
+            {
+                char cell = row[x];
+                Vector3 position = new Vector3(roomX * 10 + x, 0, roomY * 10 + (rows.Length - 1 - y));
+
+                switch (cell)
+                {
+                    case 'D': // Decoration
+                        InstantiateRandomPrefab(decorationPrefabs, position,0.7f);
+                        break;
+                    case 'T': // Trap
+                        InstantiateRandomPrefab(trapPrefabs, position);
+                        break;
+                    case 'B': // Bonus
+                        InstantiateRandomPrefab(bonusPrefabs, position,0.5f);
+                        break;
+                    case 'E': // Enemy
+                        InstantiateRandomPrefab(enemyPrefabs, position);
+                        break;
+                    case 'C': // Chest
+                        InstantiateRandomPrefab(chestPrefabs, position,0);
+                        break;
+                }
+            }
+        }
+    }
+
+
+    void InstantiateRandomPrefab(List<GameObject> prefabList, Vector3 position, float skipProbability = 0.2f)
+    {
+        // Determine if we should skip instantiation based on the probability
+        if (Random.value < skipProbability || prefabList.Count == 0)
+        {
+            return; // Skip instantiation
+        }
+
+        // Select a random prefab from the list
+        int randomIndex = Random.Range(0, prefabList.Count);
+        GameObject selectedPrefab = prefabList[randomIndex];
+        Instantiate(selectedPrefab, position, Quaternion.identity);
+    }
+
+
     void CreateRoom1Opening(int widthActual, int lengthActual, Quaternion quaternion){
         //bonusRoom
         Instantiate(Room1Opening,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
@@ -201,6 +278,8 @@ public class DungeonBuilder : MonoBehaviour
     }
 
     void CreateEndRoom(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(Room3Opening,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
+        Instantiate(EndRoom,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
     }
+
+
 }
