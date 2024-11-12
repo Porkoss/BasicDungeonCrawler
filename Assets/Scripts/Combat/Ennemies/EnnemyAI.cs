@@ -17,7 +17,7 @@ public class EnnemyAI : MonoBehaviour
 
     private  NavMeshAgent agent;
 
-    public float attackDelay=0.5f;
+    public float attackDelay=1f;
 
     
 

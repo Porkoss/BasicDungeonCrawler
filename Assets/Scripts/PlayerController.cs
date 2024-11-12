@@ -103,6 +103,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GettingPushed(Vector3 direction,float speed){
+        characterController.SimpleMove(direction*speed);
+    }
     void Attacks(){
         if(Attack.IsPressed() && weapon.CanAttack()){
             weapon.GetComponent<Weapon>().Attacks();

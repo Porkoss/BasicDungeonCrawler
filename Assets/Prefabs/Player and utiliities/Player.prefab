@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1240962867382960293}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,6 +178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   maxHealth: 1
+  dropsHandler: {fileID: 0}
+  spawnManager: {fileID: 0}
 --- !u!136 &1240962867382960293
 CapsuleCollider:
   m_ObjectHideFlags: 0
