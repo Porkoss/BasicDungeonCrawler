@@ -267,15 +267,8 @@ MonoBehaviour:
   Room4Opening: {fileID: 9176351450343728120, guid: 8b78c9cfebbd9f24697a1b75ba798ab8, type: 3}
   EndRoom: {fileID: 7446637794039618744, guid: 40edcce67b0529a4fb269fd69ce59882, type: 3}
   navMeshSurface: {fileID: 1746182566}
-  decorationPrefabs:
-  - {fileID: 3256867437051718865, guid: 53a3230981ce04c46897396ce49074bf, type: 3}
-  - {fileID: 903304280116781552, guid: 5b6ee974029ca3648944e53ae48ae3c7, type: 3}
-  - {fileID: 3860889156891032652, guid: 16efe0b2fb2cda0438db1ede8bbde847, type: 3}
-  - {fileID: 1035740722832125004, guid: 27cbf00ec4a6c7844bc3400f1cd5e290, type: 3}
-  - {fileID: 5423295452765798479, guid: 820f12b50ec4cd040b89a486364176c4, type: 3}
-  - {fileID: 834580409591663191, guid: c0c4ba2d9ee7511409d67e0f924bdd84, type: 3}
-  - {fileID: 2049546725573782226, guid: 8f8f914b6ed215541a1e7d9e5a26216d, type: 3}
-  - {fileID: 1181523072015408542, guid: 14467e043aff5964ea6b41dd5d5487f3, type: 3}
+  bigDecorationPrefabs: []
+  smallDecorationPrefabs: []
   trapPrefabs:
   - {fileID: 101680035568285188, guid: c94ed4b75d44f9544ab3534f054584f0, type: 3}
   bonusPrefabs:
@@ -306,6 +299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687317730}
   - component: {fileID: 1687317729}
+  - component: {fileID: 1687317731}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -379,6 +373,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &1687317731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687317728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ad67a84c097484b92374852a82319d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  distance: 5
+  minDistance: 2
+  maxDistance: 10
+  zoomSpeed: 2
+  mouseSensitivity: 3
+  yMinLimit: -20
+  yMaxLimit: 80
+  notStarted: 1
 --- !u!1 &1746182565
 GameObject:
   m_ObjectHideFlags: 0
