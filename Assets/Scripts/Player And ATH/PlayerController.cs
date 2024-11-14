@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         Attacks();
 
-        followingCamera.transform.position=transform.position + new Vector3(0,8,-5);
+        //followingCamera.transform.position=transform.position + new Vector3(0,8,-5);
     }
 
     void Jumps(){
@@ -92,20 +92,29 @@ public class PlayerController : MonoBehaviour
         }
     }
     void Moves(){
-        moveDirection=Move.ReadValue<Vector2>();
-        //rb.velocity=new Vector3(moveDirection.x*moveSpeed,0,moveDirection.y*moveSpeed);
-        Vector3 move =new Vector3(moveDirection.x*moveSpeed*Time.deltaTime,0,moveDirection.y*moveSpeed*Time.deltaTime);
+
+        moveDirection = Move.ReadValue<Vector2>();
+
+        // Get the camera's forward and right directions
+        Vector3 cameraForward = followingCamera.transform.forward;
+        Vector3 cameraRight = followingCamera.transform.right;
+
+        // Project forward and right onto the XZ plane (ignore Y axis)
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        // Calculate the movement direction relative to the camera
+        Vector3 move = (cameraRight * moveDirection.x + cameraForward * moveDirection.y) * moveSpeed * Time.deltaTime;
+
+        // Move the character   
         characterController.Move(move);
         if (move != Vector3.zero)
         {
             gameObject.transform.forward = move;
         }
-        if(move!=new Vector3(0,0,0)){
-            animator.SetBool("Moving",true);
-        }
-        else{
-            animator.SetBool("Moving",false);
-        }
+        animator.SetBool("Moving", move != Vector3.zero);
     }
 
     public void GettingPushed(Vector3 direction,float speed){

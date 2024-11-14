@@ -1934,8 +1934,10 @@ MonoBehaviour:
   attackRange: 20
   enemyAnimator: {fileID: 5100364621986195878}
   towardsPlayer: {x: 0, y: 0, z: 0}
+  sightRange: 25
   bCanMove: 0
   attackDelay: 0.1
+  bIsActive: 0
 --- !u!114 &4016642437633986866
 MonoBehaviour:
   m_ObjectHideFlags: 0

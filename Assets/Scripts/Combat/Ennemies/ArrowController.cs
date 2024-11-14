@@ -24,6 +24,10 @@ public class ArrowController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider){
+        if(collider.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
         if(collider.CompareTag("Player")){
             Health health=collider.gameObject.GetComponent<Health>();
             health.TakeDamage(1);

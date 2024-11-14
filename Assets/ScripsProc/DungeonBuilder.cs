@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
-using Palmmedia.ReportGenerator.Core;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using Unity.AI.Navigation;
 
 public class DungeonBuilder : MonoBehaviour
 {
@@ -19,9 +18,9 @@ public class DungeonBuilder : MonoBehaviour
     public GameObject Room4Opening;
 
     public GameObject EndRoom;
-
-
-    public List<GameObject> decorationPrefabs;
+    public NavMeshSurface navMeshSurface;
+    public List<GameObject> bigDecorationPrefabs;
+    public List<GameObject> smallDecorationPrefabs;
     public List<GameObject> trapPrefabs;
     public List<GameObject> bonusPrefabs;
     public List<GameObject> enemyPrefabs;
@@ -39,6 +38,9 @@ public class DungeonBuilder : MonoBehaviour
 
     int[,] grid = new int[width, length];
 
+    public float roomWidth=20f;
+
+    public float roomLength=20f;
 
     void Start()
     {
@@ -46,14 +48,11 @@ public class DungeonBuilder : MonoBehaviour
         BonusRoomFiller();
         PopulateRooms();
         PrintGrid(grid);
+        if (navMeshSurface != null)
+        {
+            navMeshSurface.BuildNavMesh();
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void PrintGrid(int[,] grid)
     {
         int width = grid.GetLength(0);
@@ -204,9 +203,6 @@ public class DungeonBuilder : MonoBehaviour
 
     void PopulateRooms()
     {
-        int randomIndex = Random.Range(0, gridDataList.Count);
-        GridDataSO selectedGrid = gridDataList[randomIndex];
-
         for (int actualWidth = 0; actualWidth < width; actualWidth++)
         {
             for (int actualLength = 0; actualLength < length; actualLength++)
@@ -221,6 +217,8 @@ public class DungeonBuilder : MonoBehaviour
                 }
                 else if (grid[actualWidth, actualLength] != 0)//add different selected Grid for different room type after ? 
                 {
+                    int randomIndex = Random.Range(0, gridDataList.Count);
+                    GridDataSO selectedGrid = gridDataList[randomIndex];
                     PopulateRoomWithObjects(selectedGrid, actualWidth, actualLength);
                 }
             }
@@ -236,12 +234,15 @@ public class DungeonBuilder : MonoBehaviour
             for (int x = 0; x < row.Length; x++)
             {
                 char cell = row[x];
-                Vector3 position = new Vector3(roomX * 10 + x-5, 0, roomY * 10-5+(rows.Length - 1 - y));
+                Vector3 position = new Vector3(roomX * roomLength + x-(roomLength/2), 0, roomY * roomWidth-(roomWidth/2)+(rows.Length - 1 - y));
 
                 switch (cell)
                 {
-                    case 'D': // Decoration
-                        InstantiateRandomPrefab(decorationPrefabs, position,0.7f);
+                    case 'd':
+                        InstantiateRandomPrefab(smallDecorationPrefabs, position,0.7f);
+                        break;
+                    case 'D': //Big  Decoration
+                        InstantiateRandomPrefab(bigDecorationPrefabs, position,0.7f);
                         break;
                     case 'T': // Trap
                         InstantiateRandomPrefab(trapPrefabs, position);
@@ -282,22 +283,22 @@ public class DungeonBuilder : MonoBehaviour
 
     void CreateRoom1Opening(int widthActual, int lengthActual, Quaternion quaternion){
         //bonusRoom
-        Instantiate(Room1Opening,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
+        Instantiate(Room1Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
     }
     void CreateRoom2Opening(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(Room2OpeningAcross,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
+        Instantiate(Room2OpeningAcross,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
     }
     
     void CreateRoom3Opening(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(Room3Opening,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
+        Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
     }
 
     void CreateRoom4Opening(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(Room4Opening,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
+        Instantiate(Room4Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
     }
 
     void CreateEndRoom(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(EndRoom,new Vector3(widthActual*10,0,lengthActual*10),quaternion);
+        Instantiate(EndRoom,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
     }
 
 
