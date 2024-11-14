@@ -40,8 +40,8 @@ public class Health : MonoBehaviour
     }
 
     public void GameOver(){
-        GameObject.Find("Player").GetComponent<PlayerController>().GameOver();
-        GameObject.Find("Canvas").GetComponent<UIHandler>().GameOver();
+        GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<PlayerController>().GameOver();
+        //GameObject.Find("Canvas").GetComponent<UIHandler>().GameOver();
 
     }
 

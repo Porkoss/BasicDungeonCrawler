@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  bIsOnGround: 1
+  bIsOnGround: 0
   bHasPowerUp: 0
   followingCamera: {fileID: 0}
   animator: {fileID: 4433796161903738234}

@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
         swordSound=GetComponent<AudioSource>();
+        followingCamera=GameObject.Find("Camera");
+        
     }
 
     public void Launch(){
@@ -54,9 +56,12 @@ public class PlayerController : MonoBehaviour
         Move=playerControls.Player.Move;      
         Jump=playerControls.Player.Jump;        
         Attack=playerControls.Player.Fire;
-        Move.Disable();
-        Jump.Disable();
-        Attack.Disable();
+        Move.Enable();
+        Jump.Enable();
+        Attack.Enable();
+        //Move.Disable();
+        //Jump.Disable();
+        //Attack.Disable();
     }
     private void  OnDisable()
     {
@@ -83,7 +88,7 @@ public class PlayerController : MonoBehaviour
         
         if(Jump.IsPressed()&&bIsOnGround){
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-            Debug.Log(playerVelocity.y);
+            //Debug.Log(playerVelocity.y);
         }
     }
     void Moves(){

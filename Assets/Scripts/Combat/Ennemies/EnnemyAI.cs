@@ -25,7 +25,7 @@ public class EnnemyAI : MonoBehaviour
     {
         agent=GetComponent<NavMeshAgent>();
 
-        player=GameObject.Find("Player");
+        player=GameObject.FindGameObjectsWithTag("Player")[0];
         bCanMove=true;
     }
 

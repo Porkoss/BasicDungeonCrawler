@@ -26,8 +26,11 @@ public class DungeonBuilder : MonoBehaviour
     public List<GameObject> bonusPrefabs;
     public List<GameObject> enemyPrefabs;
     public List<GameObject> chestPrefabs;
+    public GameObject playerPrefab;
 
     public List<GridDataSO> gridDataList;
+    public GridDataSO StartGrid;
+    public GridDataSO EndGrid;
 
     public static int width=6; 
     public static int length=6; 
@@ -41,6 +44,8 @@ public class DungeonBuilder : MonoBehaviour
     {
         SolutionPathBuilder();
         BonusRoomFiller();
+        PopulateRooms();
+        PrintGrid(grid);
     }
 
     // Update is called once per frame
@@ -95,7 +100,7 @@ public class DungeonBuilder : MonoBehaviour
 
                 ///
                 ///Z is right to left and is Width
-                ///X is down  to up and is length // lmao j'ai inversé
+                ///X is down  to up and is length //  j'ai inversélmao
                 case 1:
                     //right
                     //check if path is taken or end of width length
@@ -165,9 +170,11 @@ public class DungeonBuilder : MonoBehaviour
                         break;
                     }
             }
+            
         }
+        grid[0,length/2]=6; // Specifying type for starting room
         //complete diagram
-        PrintGrid(grid);
+       
 
         //force room change
 
@@ -204,7 +211,15 @@ public class DungeonBuilder : MonoBehaviour
         {
             for (int actualLength = 0; actualLength < length; actualLength++)
             {
-                if (grid[actualWidth, actualLength] != 0)
+                if (grid[actualWidth, actualLength] == 6)//Start room
+                {
+                    PopulateRoomWithObjects(StartGrid, actualWidth, actualLength);
+                }
+                else if (grid[actualWidth, actualLength] == 5)//end room
+                {
+                    PopulateRoomWithObjects(EndGrid, actualWidth, actualLength);
+                }
+                else if (grid[actualWidth, actualLength] != 0)//add different selected Grid for different room type after ? 
                 {
                     PopulateRoomWithObjects(selectedGrid, actualWidth, actualLength);
                 }
@@ -221,7 +236,7 @@ public class DungeonBuilder : MonoBehaviour
             for (int x = 0; x < row.Length; x++)
             {
                 char cell = row[x];
-                Vector3 position = new Vector3(roomX * 10 + x, 0, roomY * 10 + (rows.Length - 1 - y));
+                Vector3 position = new Vector3(roomX * 10 + x-5, 0, roomY * 10-5+(rows.Length - 1 - y));
 
                 switch (cell)
                 {
@@ -235,10 +250,14 @@ public class DungeonBuilder : MonoBehaviour
                         InstantiateRandomPrefab(bonusPrefabs, position,0.5f);
                         break;
                     case 'E': // Enemy
-                        InstantiateRandomPrefab(enemyPrefabs, position);
+                        InstantiateRandomPrefab(enemyPrefabs, position,0.7f);
                         break;
                     case 'C': // Chest
                         InstantiateRandomPrefab(chestPrefabs, position,0);
+                        break;
+                    case 'P': //PlayerStart
+                        
+                        Instantiate(playerPrefab, position, Quaternion.identity);
                         break;
                 }
             }

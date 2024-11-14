@@ -5,8 +5,8 @@ public class GridEditorWindow : EditorWindow
 {
     private GridDataSO gridData; // The ScriptableObject being edited
     private int selectedType = 0; // The currently selected type to place
-    private string[] types = { "Empty", "Decoration", "Trap", "Bonus", "Enemy",  "Chest" };
-    private char[] typeChars = { '0', 'D', 'T', 'B', 'E', 'C' };
+    private string[] types = { "Empty", "Decoration", "Trap", "Bonus", "Enemy",  "Chest" ,"Player"};
+    private char[] typeChars = { '0', 'D', 'T', 'B', 'E', 'C' ,'P'};
 
     [MenuItem("Tools/Grid Editor")]
     public static void ShowWindow()
