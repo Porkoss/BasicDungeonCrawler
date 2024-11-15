@@ -9,7 +9,7 @@ public class UIHandler : MonoBehaviour
     // Start is called before the first frame update
     public TextMeshProUGUI textHealth;
 
-    public TextMeshProUGUI textWave;
+    public TextMeshProUGUI textLevel;
 
     public GameObject gameOverText;
 
@@ -17,26 +17,26 @@ public class UIHandler : MonoBehaviour
 
     public GameObject tutoText;
 
+    public GameObject waitingText;
+
     public GameObject player;
 
     private Health health;
 
-    private SpawnManager spawnManager;
-
     private PlayerController playerController;
 
-    
+    private GameManager gameManager;
 
-    void Start()
-    {
-        health=player.GetComponent<Health>();
-        spawnManager=GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-        playerController=player.GetComponent<PlayerController>();
+    public bool bgameStarted=false;
+
+    void Start(){
+        gameManager=GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-
     void Update(){
-        textHealth.SetText("Health: "+health.health);
-        textWave.SetText("Wave : "+(spawnManager.waveCounter-1));
+        if(bgameStarted){
+            textHealth.SetText("Health: "+health.health);
+            textLevel.SetText("Level : "+(gameManager.Level));
+        }
     }
 
     public void GameOver(){
@@ -49,9 +49,28 @@ public class UIHandler : MonoBehaviour
     }
 
     public void LaunchButton(){
-        playerController.Launch();
-        spawnManager.Launch();
+        gameManager.GenerateLevel();
         startText.SetActive(false);
         tutoText.SetActive(false);
+        WaitingScreenOn();
+    }
+
+    public void WaitingScreenOn(){
+        waitingText.SetActive(true);
+    }
+
+    public void WaitingScreenOff(){
+        player=GameObject.FindGameObjectsWithTag("Player")[0];
+        health=player.GetComponent<Health>();
+        playerController=player.GetComponent<PlayerController>();
+        waitingText.SetActive(false);
+        textHealth.gameObject.SetActive(true);
+        textLevel.gameObject.SetActive(true);
+        bgameStarted=true;
+    }
+
+    public void EnterGame(){
+        startText.SetActive(true);
+        tutoText.SetActive(true);
     }
 }

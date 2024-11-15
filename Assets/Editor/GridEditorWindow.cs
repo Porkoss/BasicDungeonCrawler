@@ -5,8 +5,8 @@ public class GridEditorWindow : EditorWindow
 {
     private GridDataSO gridData; // The ScriptableObject being edited
     private int selectedType = 0; // The currently selected type to place
-    private string[] types = { "Empty", "Decoration", "Trap", "Bonus", "Enemy",  "Chest" ,"Player"};
-    private char[] typeChars = { '0', 'D', 'T', 'B', 'E', 'C' ,'P'};
+    private string[] types = { "Empty", "Small Decoration","Decoration", "Trap", "Bonus", "Enemy", "Chest", "Player" };
+    private char[] typeChars = { '0', 'd','D', 'T', 'B', 'E', 'C', 'P' };
 
     [MenuItem("Tools/Grid Editor")]
     public static void ShowWindow()
@@ -55,6 +55,14 @@ public class GridEditorWindow : EditorWindow
         }
         GUILayout.EndVertical();
 
+        // Generate random layout button
+        if (GUILayout.Button("Generate Random Layout"))
+        {
+            GenerateRandomLayout();
+            SaveGridText();
+            EditorUtility.SetDirty(gridData);
+        }
+
         // Save the changes
         if (GUILayout.Button("Save Grid"))
         {
@@ -81,6 +89,17 @@ public class GridEditorWindow : EditorWindow
         lineChars[x] = newType;
         lines[y] = new string(lineChars);
         gridData.gridText = string.Join("\n", lines);
+    }
+
+    // Generate a random layout using RoomGenerator
+    private void GenerateRandomLayout()
+    {
+        // Use RoomGenerator to get a random configuration
+        string randomLayout = RoomGenerator.GenerateRandomRoom();
+
+        // Apply the generated layout to the gridData
+        gridData.gridText = randomLayout;
+        Debug.Log("Random layout generated!");
     }
 
     // Save the grid text back to the ScriptableObject

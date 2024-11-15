@@ -56,9 +56,6 @@ public class PlayerController : MonoBehaviour
         Move=playerControls.Player.Move;      
         Jump=playerControls.Player.Jump;        
         Attack=playerControls.Player.Fire;
-        Move.Enable();
-        Jump.Enable();
-        Attack.Enable();
         //Move.Disable();
         //Jump.Disable();
         //Attack.Disable();
@@ -125,23 +122,22 @@ public class PlayerController : MonoBehaviour
             weapon.GetComponent<Weapon>().Attacks();
             Debug.Log("Attacking");
             animator.SetTrigger("Attacks");
-            swordSound.Play();
+            //swordSound.Play();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("PowerUp")){
+        if(other.gameObject.CompareTag("PowerUp")){///change when otherup comes
             Destroy(other.gameObject);
-            bHasPowerUp=true;
+            
             weapon.gameObject.SetActive(true);
             weapon.ResetDurability();
             //activeCoroutine=StartCoroutine(RemovePowerUp());
         }
         else if (other.gameObject.CompareTag("Chest")){
-            SpawnManager spawnManager= GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-            spawnManager.bChestLooted=true;
-            spawnManager.bChestSpawned=false;
+            GameManager gameManager= GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameManager.ChestLooted();
             Destroy(other.gameObject);
             if(activeCoroutine!=null){
                 StopCoroutine(activeCoroutine);
@@ -151,7 +147,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator RemovePowerUp(){
+    IEnumerator RemovePowerUp(){////not used yet
         yield return new WaitForSeconds(100);
         bHasPowerUp=false;
     }
