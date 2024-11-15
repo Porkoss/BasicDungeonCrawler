@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform target;         // The character the camera will follow
-    public float distance = 5.0f;    // Initial distance from the character
+    public float distance = 8.0f;    // Initial distance from the character
     public float minDistance = 2.0f; // Minimum zoom distance
     public float maxDistance = 10.0f; // Maximum zoom distance
     public float zoomSpeed = 2.0f;   // Speed of zooming
@@ -15,7 +15,8 @@ public class CameraController : MonoBehaviour
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
-    public bool notStarted=true;
+    public bool bIsPlaying=false;
+
 
     void Start()
     {
@@ -31,6 +32,9 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
+        if(!bIsPlaying){
+            return;
+        }
         // Handle camera rotation when the right mouse button is held down
         if (Input.GetMouseButton(1)) // Right-click
         {
@@ -69,15 +73,8 @@ public class CameraController : MonoBehaviour
         transform.rotation = rotation;
         transform.position = position;
     }
-
-    void Update(){
-        if(Time.time>2f&& notStarted){
-            notStarted=false;
-            CameraLaunch();
-        }
-    }
-
     public void CameraLaunch(){
         target=GameObject.FindGameObjectsWithTag("Player")[0].transform;
+        bIsPlaying=true;
     }
 }

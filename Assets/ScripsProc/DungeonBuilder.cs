@@ -42,8 +42,9 @@ public class DungeonBuilder : MonoBehaviour
 
     public float roomLength=20f;
 
-    void Start()
-    {
+    public GameManager gameManager;
+
+    public void Launch(){
         SolutionPathBuilder();
         BonusRoomFiller();
         PopulateRooms();
@@ -52,6 +53,8 @@ public class DungeonBuilder : MonoBehaviour
         {
             navMeshSurface.BuildNavMesh();
         }
+        Debug.Log("Should Call game is ready here");
+        gameManager.GameIsReady();
     }
     void PrintGrid(int[,] grid)
     {
@@ -239,19 +242,19 @@ public class DungeonBuilder : MonoBehaviour
                 switch (cell)
                 {
                     case 'd':
-                        InstantiateRandomPrefab(smallDecorationPrefabs, position,0.7f);
+                        InstantiateRandomPrefab(smallDecorationPrefabs, position,0f);
                         break;
                     case 'D': //Big  Decoration
-                        InstantiateRandomPrefab(bigDecorationPrefabs, position,0.7f);
+                        InstantiateRandomPrefab(bigDecorationPrefabs, position,0f);
                         break;
                     case 'T': // Trap
-                        InstantiateRandomPrefab(trapPrefabs, position);
+                        InstantiateRandomPrefab(trapPrefabs, position,0);
                         break;
                     case 'B': // Bonus
-                        InstantiateRandomPrefab(bonusPrefabs, position,0.5f);
+                        InstantiateRandomPrefab(bonusPrefabs, position,0f);
                         break;
                     case 'E': // Enemy
-                        InstantiateRandomPrefab(enemyPrefabs, position,0.7f);
+                        InstantiateRandomPrefab(enemyPrefabs, position,0.5f);
                         break;
                     case 'C': // Chest
                         InstantiateRandomPrefab(chestPrefabs, position,0);
