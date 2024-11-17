@@ -363,7 +363,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Restart
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1407,6 +1407,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b5143a4ea4c18e438730705c2a736a5, type: 2}
   - {fileID: 11400000, guid: bf8fcf1723351d84e9adf9ffbacbe1b4, type: 2}
   - {fileID: 11400000, guid: 2ca3cffd8fe14cc47b79248e1a9a1a7d, type: 2}
+  - {fileID: 11400000, guid: d8237f8b8b9a09d488b409dad4a089ea, type: 2}
   StartGrid: {fileID: 11400000, guid: 989d6508250bc46438f88152aa992317, type: 2}
   EndGrid: {fileID: 11400000, guid: e500852365e5ddb4b82a8c61b0a83632, type: 2}
   EndReached: 0

@@ -13,14 +13,13 @@ public class RoomGenerator
     public static string GenerateRandomRoom()
     {
         char[,] grid = InitializeEmptyGrid();
-
         // Place big decorations (with buffer zone around them)
         int bigDecorationCount = random.Next(1, 3);
         PlaceBigDecorationsWithBuffer(grid, bigDecorationCount);
 
         // Place other blocking objects (Traps) anywhere on the grid
         int trapCount = random.Next(1, 10);
-        PlaceObjects(grid, new char[] { 'T' }, trapCount, allowEdge: false);
+        PlaceObjects(grid, new char[] { 'T' }, trapCount, allowEdge: true);
 
         int smallDecorationCount=random.Next(10,20);
         PlaceObjects(grid, new char[] { 'd' }, trapCount, allowEdge: true);
@@ -66,8 +65,8 @@ public class RoomGenerator
             int x, y;
             do
             {
-                x = random.Next(1, roomSize - 1);
-                y = random.Next(1, roomSize - 1);
+                x = random.Next(1, roomSize - 3);
+                y = random.Next(1, roomSize - 3);
             } while (!CanPlaceBigDecoration(grid, x, y));
 
             grid[y, x] = 'D';
@@ -124,8 +123,8 @@ public class RoomGenerator
             int x, y;
             do
             {
-                x = random.Next(allowEdge ? 0 : 1, allowEdge ? roomSize : roomSize - 1);
-                y = random.Next(allowEdge ? 0 : 1, allowEdge ? roomSize : roomSize - 1);
+                x = random.Next(allowEdge ? 1 : 2, allowEdge ? roomSize -1: roomSize - 2);
+                y = random.Next(allowEdge ? 1 : 2, allowEdge ? roomSize -1: roomSize - 2);
             } while (grid[y, x] != '0' && grid[y, x] != 'X'); // Skip cells occupied by buffer or existing objects
 
             grid[y, x] = objType;

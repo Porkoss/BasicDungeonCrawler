@@ -45,6 +45,17 @@ public class DungeonBuilder : MonoBehaviour
     public GameManager gameManager;
 
     public void Launch(){
+        StartCoroutine(SequencerLaunch());
+    }
+
+    private IEnumerator SequencerLaunch(){
+        yield return LaunchBuilder();
+        gameManager.GameIsReady();
+
+    }
+
+    private IEnumerator LaunchBuilder()
+    {
         SolutionPathBuilder();
         BonusRoomFiller();
         PopulateRooms();
@@ -53,8 +64,7 @@ public class DungeonBuilder : MonoBehaviour
         {
             navMeshSurface.BuildNavMesh();
         }
-        Debug.Log("Should Call game is ready here");
-        gameManager.GameIsReady();
+        return null;
     }
     void PrintGrid(int[,] grid)
     {
@@ -95,6 +105,7 @@ public class DungeonBuilder : MonoBehaviour
         int widthActual=0;
         int lengthActual=length/2;
         bool bGoingDown=false;
+        
         while(!EndReached){
             //pick random direction
             int direction = GetRandomDirection();
@@ -117,7 +128,7 @@ public class DungeonBuilder : MonoBehaviour
                             CreateRoom2Opening(widthActual,lengthActual,Quaternion.Euler(0, 90, 0));
                         }
                         else{
-                            CreateRoom3Opening(widthActual,lengthActual,Quaternion.Euler(0, 180, 0));
+                            CreateTRoom(widthActual,lengthActual,Quaternion.Euler(0, 180, 0));
                            
                         }
                         grid[widthActual,lengthActual]=1;
@@ -140,7 +151,7 @@ public class DungeonBuilder : MonoBehaviour
                             
                         }
                         else{
-                            CreateRoom3Opening(widthActual,lengthActual,Quaternion.Euler(0, 180, 0));
+                            CreateTRoom(widthActual,lengthActual,Quaternion.Euler(0, 180, 0));
                         }
                         grid[widthActual,lengthActual]=2;
                         lengthActual=lengthActual+1;
@@ -159,7 +170,7 @@ public class DungeonBuilder : MonoBehaviour
                     }
                     else{
                         if(!bGoingDown){
-                            CreateRoom3Opening(widthActual,lengthActual,Quaternion.identity);
+                            CreateTinvertedRoom(widthActual,lengthActual,Quaternion.identity);
                            
                         }
                         else{
@@ -292,12 +303,86 @@ public class DungeonBuilder : MonoBehaviour
         Instantiate(Room2OpeningAcross,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
     }
     
+    void CreateRoom3OpeningDown(int widthActual, int lengthActual, Quaternion quaternion){
+        if (widthActual == width - 1 ){
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,180,0));
+        }
+        else if (lengthActual == 0)
+        {
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.identity);
+            
+        }
+        else if (lengthActual == length - 1)
+        {
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,90,0));
+        }
+        else{
+            Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        }
+        
+    }
+
     void CreateRoom3Opening(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        if (widthActual == width - 1 ){
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,180,0));
+        }
+        else if (lengthActual == 0)
+        {
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.identity);
+            
+        }
+        else if (lengthActual == length - 1)
+        {
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,90,0));
+        }
+        else{
+            Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        }
+        
+    }
+
+    void CreateTRoom(int widthActual, int lengthActual, Quaternion quaternion)
+    {
+        if(lengthActual == length - 1)//gauche
+        {
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,180,0));
+        }
+        else if (lengthActual == 0){//droite
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,-90,0));
+        }
+        else{
+            Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,180,0));
+        }
+    }
+
+    void CreateTinvertedRoom(int widthActual, int lengthActual, Quaternion quaternion)
+    {
+        if(lengthActual == length - 1)//gauche
+        {
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,90,0));
+        }
+        else if (lengthActual == 0){//droite
+            Instantiate(Room2OpeningAngle,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.identity);
+        }
+        else{
+            Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.identity);
+        }
     }
 
     void CreateRoom4Opening(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(Room4Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        if (lengthActual == 0)//droite
+        {
+            Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,-90,0));
+            
+        }
+        else if (lengthActual == length - 1)//gauche
+        {
+            Instantiate(Room3Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),Quaternion.Euler(0,90,0));
+        }
+        else{
+            Instantiate(Room4Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        }
+        
     }
 
     void CreateEndRoom(int widthActual, int lengthActual, Quaternion quaternion){
@@ -306,3 +391,12 @@ public class DungeonBuilder : MonoBehaviour
 
 
 }
+
+
+//lengthActual == length - 1 gauche
+
+//lenghtActual == 0 droite
+
+//widthActual == width - 1 haut
+
+//withActual == 0 bas
