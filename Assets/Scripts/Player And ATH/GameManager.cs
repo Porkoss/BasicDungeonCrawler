@@ -69,6 +69,9 @@ private IEnumerator InitializeAfterSceneLoad()
     {
         uIHandler.LaunchButton();  // Call method only if UIHandler is not null
     }
+    else{
+        uIHandler.EnterGame();
+    }
 }
 
 
@@ -79,13 +82,12 @@ private IEnumerator InitializeAfterSceneLoad()
     }
     public void GenerateLevel(){
         dungeonBuilder.Launch();
-        uIHandler.WaitingScreenOn();
     }
 
     
     public void GameIsReady(){
-        Debug.Log("Level is ready");
         player= GameObject.FindGameObjectsWithTag("Player")[0];
+        int nb=GameObject.FindGameObjectsWithTag("Player").Length;
         player.GetComponent<PlayerController>().Launch();
         cameraController.CameraLaunch();
         uIHandler.WaitingScreenOff();
@@ -93,12 +95,15 @@ private IEnumerator InitializeAfterSceneLoad()
 
     public void ChestLooted(){
         Level=Level+1;
+        player= GameObject.FindGameObjectsWithTag("Player")[0];
         health=player.GetComponent<Health>().health;
         SceneManager.LoadScene(0);
     }
 
-    private void Start() {
-        
-        uIHandler.EnterGame();
+    public void Restart(){
+        Level=0;
+        player= GameObject.FindGameObjectsWithTag("Player")[0];
+        health=0;
+        SceneManager.LoadScene(0);
     }
 }

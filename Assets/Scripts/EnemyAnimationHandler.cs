@@ -10,6 +10,8 @@ public class EnemyAnimationHandler : MonoBehaviour
     public EnnemyAI ennemyAI;
     public float radius =1f;
 
+    public float swordLength=1f;
+
     public float damage=1f;
     private bool bIsHitting=false;
 
@@ -30,17 +32,30 @@ public class EnemyAnimationHandler : MonoBehaviour
         ennemyAI.bCanMove=true;
     }
     public void CheckCollision() {
-    // Assuming your player has a Collider with the tag "Player"
-    Collider[] hitColliders = Physics.OverlapSphere(enemyWeapon.transform.position,radius);
-    foreach (Collider hitCollider in hitColliders) 
-        {
-            if (hitCollider.CompareTag("Player")&&canHitPlayer) {
-                Health playerHealth= hitCollider.GetComponent<Health>();
-                playerHealth.TakeDamage(damage);
-                canHitPlayer=false;
+        Debug.Log("Checking collision");
+        // Assuming your player has a Collider with the tag "Player"
+
+        // Define the start and end points for the capsule, based on the sword's position and Y direction (up or down).
+        Vector3 capsuleStart = enemyWeapon.transform.position;  // Start position (e.g., sword's handle)
+        
+        // Use the Y-axis (up or down) direction for the capsule's length (along the Y-axis)
+        Vector3 capsuleEnd = enemyWeapon.transform.position - enemyWeapon.transform.up * swordLength; // End position (tip of the sword)
+
+        // Perform the capsule overlap check (with the specified radius for the capsule's thickness).
+        Collider[] hitColliders = Physics.OverlapCapsule(capsuleStart, capsuleEnd, radius); // radius here is the thickness of the capsule
+
+        // Check if the colliders hit the player and handle damage.
+        foreach (Collider hitCollider in hitColliders) {
+            if (hitCollider.CompareTag("Player") && canHitPlayer) {
+                Health playerHealth = hitCollider.GetComponent<Health>();
+                if (playerHealth != null) {
+                    playerHealth.TakeDamage(damage);
+                    canHitPlayer = false; // Optionally, stop hitting continuously
+                }
             }
         }
     }
+
     void Update(){
         if(bIsHitting&&canHitPlayer){
             CheckCollision();

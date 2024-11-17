@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyWeapon: {fileID: 0}
   ennemyAI: {fileID: 4117198365174495747}
-  radius: 0.8
+  radius: 1
   damage: 1
 --- !u!1 &3946255149984481677
 GameObject:

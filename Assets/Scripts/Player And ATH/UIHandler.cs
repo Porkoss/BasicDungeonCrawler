@@ -45,7 +45,7 @@ public class UIHandler : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        gameManager.Restart();
     }
 
     public void LaunchButton(){
@@ -60,6 +60,7 @@ public class UIHandler : MonoBehaviour
     }
 
     public void WaitingScreenOff(){
+        
         player=GameObject.FindGameObjectsWithTag("Player")[0];
         health=player.GetComponent<Health>();
         playerController=player.GetComponent<PlayerController>();
@@ -67,6 +68,7 @@ public class UIHandler : MonoBehaviour
         textHealth.gameObject.SetActive(true);
         textLevel.gameObject.SetActive(true);
         bgameStarted=true;
+        
     }
 
     public void EnterGame(){
