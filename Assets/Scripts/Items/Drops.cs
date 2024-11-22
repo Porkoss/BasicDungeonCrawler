@@ -8,11 +8,9 @@ public class Drops : MonoBehaviour
     public float HealthGained=1;
     public float Chance=0.25f;
 
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player")){
-            other.GetComponent<Health>().GainMaxHealth(HealthGained);
-            Destroy(gameObject);
-        }
-    }    
+
+    public virtual void ActivateItem(){
+        
+    }
+
 }

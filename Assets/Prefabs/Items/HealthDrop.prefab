@@ -14612,11 +14612,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7750224450364162829}
-  - component: {fileID: 5629899260975120926}
   - component: {fileID: 8367678746317508789}
+  - component: {fileID: 453781801912983248}
+  - component: {fileID: 5262588694964800261}
   m_Layer: 0
   m_Name: HealthDrop
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14649,20 +14650,6 @@ Transform:
   - {fileID: 7167212441527975462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5629899260975120926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710415460035626178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b2ca06abec704741b19ac4e189b79f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HealthGained: 1
-  Chance: 0.5
 --- !u!135 &8367678746317508789
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14684,6 +14671,34 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &453781801912983248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710415460035626178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e5c6054ca410c47bac2fb6e07b5e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Potion
+  icon: {fileID: 21300090, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
+  quantity: 1
+  isStackable: 1
+--- !u!114 &5262588694964800261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710415460035626178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46874afa346436442bc6351287026aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3036851863390043161
 GameObject:
   m_ObjectHideFlags: 0
