@@ -14,11 +14,11 @@ public class PlayerController : MonoBehaviour
      private float jumpHeight = 1.0f;
 
     public PlayerControls playerControls;
-
     private InputAction Move;
     private InputAction Jump;
     private InputAction Attack;
     
+    public Inventory playerInventory;
     public bool bIsOnGround;
     private Vector2 moveDirection;
 
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         characterController=GetComponent<CharacterController>();
         swordSound=GetComponent<AudioSource>();
         followingCamera=GameObject.Find("Camera");
-        
+        playerInventory=GameObject.Find("InventoryManager").GetComponent<Inventory>();
     }
 
     public void Launch(){
@@ -128,12 +128,13 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("PowerUp")){///change when otherup comes
-            Destroy(other.gameObject);
+        if(other.gameObject.CompareTag("Item")){///change when otherup comes
             
-            weapon.gameObject.SetActive(true);
-            weapon.ResetDurability();
+            ItemMono item=other.gameObject.GetComponent<ItemMono>();
+            Item newItem=new Item(item);
+            playerInventory.AddItem(newItem);
             //activeCoroutine=StartCoroutine(RemovePowerUp());
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Chest")){
             GameManager gameManager= GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -145,9 +146,14 @@ public class PlayerController : MonoBehaviour
             
             bHasPowerUp=false;
         }
+       
+        
+
+        // Afficher les items dans la console
+        FindObjectOfType<InventoryUI>().UpdateInventoryUI();
     }
 
-    IEnumerator RemovePowerUp(){////not used yet
+    IEnumerator RemovePowerUp(){//not used yet
         yield return new WaitForSeconds(100);
         bHasPowerUp=false;
     }

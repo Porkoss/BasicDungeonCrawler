@@ -7,6 +7,5 @@ public class RangeEnemyAi : EnnemyAI
 
     protected override void Attacks(){
         enemyAnimator.SetTrigger("Shoots");
-         
     }
 }

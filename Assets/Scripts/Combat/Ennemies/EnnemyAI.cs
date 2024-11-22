@@ -9,6 +9,7 @@ public class EnnemyAI : MonoBehaviour
     // Start is called before the first frame update
     public float speed=1f;
     public float attackRange=1f;
+    public float rotationSpeed = 5f;
     private GameObject player;
     
 
@@ -45,18 +46,37 @@ public class EnnemyAI : MonoBehaviour
         if(IsSeeingEnemy()){
             if(towardsPlayer.magnitude >= attackRange&&bCanMove){
             //Moves();
-                agent.SetDestination(player.transform.position);
+                if(!isFacingTarget(towardsPlayer)){
+                    RotateTowardsPlayer(towardsPlayer);
+                }
+                else{
+                    agent.SetDestination(player.transform.position);
+                    enemyAnimator.SetBool("IsMoving",true);
+                }
             }
             else if(bCanMove){
-                agent.SetDestination(transform.position);
                 transform.forward=towardsPlayer.normalized;
-                StartCoroutine(DelayAttacks());
+                agent.SetDestination(transform.position);
+                StartCoroutine(DelayAttacks()); 
                 bCanMove=false;
-                
+                enemyAnimator.SetBool("IsMoving",false);
             }
         }
     }
 
+    private void RotateTowardsPlayer(Vector3 direction)
+    {
+        // Set rotation
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+    }
+
+    private bool isFacingTarget(Vector3 direction)
+    {
+        // Check if the enemy is almost facing the target (angle threshold)
+        float angle = Vector3.Angle(transform.forward, direction);
+        return angle < 15f; // Adjust the threshold as needed
+    }
     bool IsSeeingEnemy()
     {
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;

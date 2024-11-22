@@ -17,7 +17,6 @@ public class Item
         this.quantity = quantity;
         this.isStackable = isStackable;
         this.type=type;
-    
     }
 
     public Item(ItemMono item){
@@ -29,6 +28,5 @@ public class Item
     }
 
     public virtual void ActivateItem(){
-
     }
 }

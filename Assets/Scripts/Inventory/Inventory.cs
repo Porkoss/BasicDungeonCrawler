@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
         if (newItem.isStackable)
         {
             Item existingItem = items.Find(item => item.itemName == newItem.itemName);
+
             if (existingItem != null)
             {
                 existingItem.quantity += newItem.quantity;

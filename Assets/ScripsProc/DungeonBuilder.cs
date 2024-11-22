@@ -26,7 +26,6 @@ public class DungeonBuilder : MonoBehaviour
     public List<GameObject> enemyPrefabs;
     public List<GameObject> chestPrefabs;
     public GameObject playerPrefab;
-
     public List<GridDataSO> gridDataList;
     public GridDataSO StartGrid;
     public GridDataSO EndGrid;
@@ -58,13 +57,18 @@ public class DungeonBuilder : MonoBehaviour
     {
         SolutionPathBuilder();
         BonusRoomFiller();
-        PopulateRooms();
         PrintGrid(grid);
         if (navMeshSurface != null)
         {
-            navMeshSurface.BuildNavMesh();
+            Invoke(nameof(BuildNavMesh),0.1f);
         }
-        return null;
+        Invoke(nameof(PopulateRooms),0.2f);
+        yield return new WaitForSeconds(0.3f);
+    }
+
+    private void BuildNavMesh(){
+        print("building navmesh");
+        navMeshSurface.BuildNavMesh();
     }
     void PrintGrid(int[,] grid)
     {
@@ -248,7 +252,7 @@ public class DungeonBuilder : MonoBehaviour
             for (int x = 0; x < row.Length; x++)
             {
                 char cell = row[x];
-                Vector3 position = new Vector3(roomX * roomLength + x-(roomLength/2), 0, roomY * roomWidth-(roomWidth/2)+(rows.Length - 1 - y));
+                Vector3 position = new Vector3(roomX * roomLength + x-(roomLength/2)-0.5f, 0, roomY * roomWidth-(roomWidth/2)+(rows.Length - 1.5f - y));
 
                 switch (cell)
                 {
