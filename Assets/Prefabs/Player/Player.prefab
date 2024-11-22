@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
+  playerInventory: {fileID: 0}
   bIsOnGround: 0
   bHasPowerUp: 0
   followingCamera: {fileID: 0}
@@ -176,8 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5f8251872be01c459626053c83deb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
-  maxHealth: 1
+  health: 10
+  maxHealth: 10
   dropsHandler: {fileID: 0}
   spawnManager: {fileID: 0}
 --- !u!136 &1240962867382960293

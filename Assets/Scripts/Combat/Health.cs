@@ -11,9 +11,6 @@ public class Health : MonoBehaviour
     public float maxHealth=1;
 
     public DropsHandler dropsHandler;
-    
-
-    public SpawnManager spawnManager;
 
     void Start(){
         dropsHandler=GetComponent<DropsHandler>();
@@ -53,7 +50,7 @@ public class Health : MonoBehaviour
 
     public void Heal(float healthRecovered){
         health+=healthRecovered;
-        if(health<maxHealth){
+        if(health>maxHealth){
 
             health=maxHealth;
         }

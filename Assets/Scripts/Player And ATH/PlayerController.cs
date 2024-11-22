@@ -131,7 +131,8 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Item")){///change when otherup comes
             
             ItemMono item=other.gameObject.GetComponent<ItemMono>();
-            Item newItem=new Item(item);
+            ItemChildManager itemChildManager=new ItemChildManager();
+            Item newItem=itemChildManager.CreateItem(item);
             playerInventory.AddItem(newItem);
             //activeCoroutine=StartCoroutine(RemovePowerUp());
             Destroy(other.gameObject);

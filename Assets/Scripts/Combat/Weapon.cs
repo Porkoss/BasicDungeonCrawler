@@ -39,11 +39,6 @@ public class Weapon : MonoBehaviour
         StartCoroutine(RechargeAttack());
         Debug.Log("Weapon Attacks");
         Durability-=1;
-        if(Durability<=0){
-            StopCoroutine(RechargeAttack());
-            bCanAttack=false;
-            StartCoroutine(BreakWeapon());
-        }   
         }
     }
     IEnumerator RechargeAttack(){
@@ -55,25 +50,13 @@ public class Weapon : MonoBehaviour
         Durability=3;
         bCanAttack=true;
     }
-
-    IEnumerator BreakWeapon(){
-        yield return new WaitForSeconds(Time.deltaTime*60);
-        attackArea.gameObject.SetActive(false);
-        gameObject.SetActive(false);
-        GenerateWeaponIfNoWeapon();
-    }
-
     public bool CanAttack(){
         return bCanAttack;
     }
-
-
-    void GenerateWeaponIfNoWeapon(){
+    public void BreakWeapon(){
         
-        int weaponCount=GameObject.FindGameObjectsWithTag("PowerUp").Length;
-        if(weaponCount<1){
-            GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SpawnWeapon();
-        }
-        
+        attackArea.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
+
 }

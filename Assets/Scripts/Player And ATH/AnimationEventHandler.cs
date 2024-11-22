@@ -11,5 +11,8 @@ public class AnimationEventHandler : MonoBehaviour
     }
     public void DamageFrameOff(){
         weapon.DamageFrame=false;
+        if(weapon.Durability<=0){
+            weapon.BreakWeapon();
+        }
     }
 }

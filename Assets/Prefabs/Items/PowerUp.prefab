@@ -126,6 +126,8 @@ MonoBehaviour:
   icon: {fileID: 21300074, guid: 7ab74e659e1f0a34d9cfec21c478fc12, type: 3}
   quantity: 1
   isStackable: 0
+  type: Weapon
+  dropChance: 0
 --- !u!1001 &4792115226207133832
 PrefabInstance:
   m_ObjectHideFlags: 0

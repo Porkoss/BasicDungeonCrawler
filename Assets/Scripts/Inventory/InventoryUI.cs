@@ -5,51 +5,73 @@ using TMPro;
 public class InventoryUI : MonoBehaviour
 {
     public Inventory playerInventory; // Référence à l'inventaire du joueur
-    public GameObject buttonPrefab;  // Prefab pour chaque item
+    public GameObject slotPrefab;  // Prefab pour chaque item
     public Transform inventoryPanel; // Le parent contenant les boutons (Panel avec Grid Layout Group)
+
+
+    private void Start() {
+        UpdateInventoryUI();
+    }
+    private void Update() {
+        CheckItemActivation();
+    }
+
+    private void CheckItemActivation()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            // Vérifie si une touche numérique correspondant à l'index est pressée
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i)) // Alpha1 correspond à la touche "1"
+            {
+                ActivateItemByIndex(i);
+                break; // Stoppe la boucle après avoir trouvé l'index
+            }
+        }
+    }
+    private void ActivateItemByIndex(int index)
+    {
+        if (index >= 0 && index < playerInventory.items.Count)
+        {
+            var item = playerInventory.items[index];
+            Debug.Log($"Activation de l'item : {item.itemName}");
+            item.ActivateItem();
+            playerInventory.RemoveItem(item);
+            UpdateInventoryUI();
+        }
+    }
 
     public void UpdateInventoryUI()
     {
-        // Supprime tous les anciens boutons avant d'en ajouter de nouveaux
-        foreach (Transform child in inventoryPanel)
+        for (int i = 0; i < inventoryPanel.childCount; i++)
         {
-            Destroy(child.gameObject);
-        }
+            Transform slotTransform = inventoryPanel.GetChild(i);
+            InventorySlot slot = slotTransform.GetComponent<InventorySlot>();
 
-        // Parcourt tous les items de l'inventaire
-        foreach (var item in playerInventory.items)
-        {
-            //Debug.Log($"Création du bouton pour : {item.itemName}"); // Debug pour chaque item
-            // Instancie un bouton à partir du prefab
-            GameObject newButton = Instantiate(buttonPrefab, inventoryPanel);
-
-            // Configure le bouton
-            newButton.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName; // Affiche le nom de l'item
-
-
-            TextMeshProUGUI quantityText = newButton.transform.Find("QuantityText")?.GetComponent<TextMeshProUGUI>();//affiche quantité
-            quantityText.text = $"x{item.quantity}";
-            newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(item));
-
-            // Optionnel : Associe une icône
-            if (item.icon != null)
+            if (i < playerInventory.items.Count)
             {
-                Image iconImage = newButton.GetComponentInChildren<Image>();
-                if (iconImage != null)
-                {
-                    iconImage.sprite = item.icon;
-                }
+                slot.InitializeSlot(playerInventory.items[i]);
+            }
+            else
+            {
+                slot.ClearSlot();
             }
         }
     }
 
+
+
+
+
+    /*
     private void OnItemButtonClicked(Item item)
     {
         item.ActivateItem();
         playerInventory.RemoveItem(item);
-        FindObjectOfType<InventoryUI>().UpdateInventoryUI();
+        
+        UpdateInventoryUI();
 
         // Ajoute ici une action comme afficher un panneau de détails ou utiliser l'item
         
     }
+    */
 }

@@ -34,8 +34,14 @@ public class Inventory : MonoBehaviour
     {
         if (items.Contains(itemToRemove))
         {
-            items.Remove(itemToRemove);
-            Debug.Log($"{itemToRemove.itemName} retiré de l'inventaire.");
+            if(itemToRemove.quantity>1){
+                itemToRemove.quantity--;
+            }
+            else{
+                items.Remove(itemToRemove);
+                Debug.Log($"{itemToRemove.itemName} retiré de l'inventaire.");
+            }
+
         }
     }
 
