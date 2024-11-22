@@ -9,5 +9,8 @@ public class ItemMono : MonoBehaviour
     public Sprite icon;
     public int quantity;
     public bool isStackable;
-    public Drops drop;
+
+    public string type;
+    public float dropChance;
+
 }

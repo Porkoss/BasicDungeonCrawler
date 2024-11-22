@@ -7,9 +7,9 @@ public class DropsHandler : MonoBehaviour
     // Start is called before the first frame update    
     public GameObject[] dropPrefabs;
 
-    public bool IsDropping(Drops drop){
+    public bool IsDropping(ItemMono drop){
         float dropRandom=Random.Range(0f,1);
-        if(dropRandom<=drop.Chance)
+        if(dropRandom<=drop.dropChance)
         {
             return true;
         }
@@ -19,7 +19,7 @@ public class DropsHandler : MonoBehaviour
     public void GenerateDrops(){
         foreach (GameObject  drop in dropPrefabs)
         {
-            Drops dropClass = drop.GetComponent<Drops>();
+            ItemMono dropClass = drop.GetComponent<ItemMono>();
             if(IsDropping(dropClass)){
                 Instantiate(drop,RandomVector3(),drop.transform.rotation);
             }
