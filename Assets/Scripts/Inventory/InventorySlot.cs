@@ -8,7 +8,10 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Item item; // L'item stocké dans ce slot
     public Image icon; // L'icône affichée
     public TextMeshProUGUI quantityText; // Texte pour la quantité
-    public Transform originalParent; // Sauvegarde du parent d'origine pour revenir à sa position initiale
+    public Transform originalParent;
+    //private Vector3 originPosition; 
+
+    private GameObject dragCopy;
 
     private Canvas canvas; // Référence au canvas parent pour gérer le drag
     private RectTransform rectTransform;
@@ -47,48 +50,84 @@ public class InventorySlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (item == null) return;
+        dragCopy = new GameObject("DragCopy", typeof(RectTransform), typeof(CanvasGroup));
+        dragCopy.transform.SetParent(canvas.transform, false);
 
-        canvasGroup.alpha = 0.6f; // Rendre le slot semi-transparent
-        canvasGroup.blocksRaycasts = false; // Permettre au raycast de traverser cet objet
-        originalParent = transform.parent; // Sauvegarde du parent actuel
-        transform.SetParent(canvas.transform); // Déplace l'objet au niveau du canvas pour un mouvement fluide
+        RectTransform copyRect = dragCopy.GetComponent<RectTransform>();
+        copyRect.sizeDelta = rectTransform.sizeDelta;
+
+        // Copy the visuals (icon, text, etc.)
+        // Example: Use a prefab or manually clone UI components
+        CopyVisuals(dragCopy);
+
+        canvasGroup.alpha = 0.5f; // Fade the original slot
+        canvasGroup.blocksRaycasts = false;
+        
+    }
+    private void CopyVisuals(GameObject dragCopy)
+    {
+        // Example of cloning visuals:
+        // Add an Image to the drag copy and set its sprite
+        var iconImage = dragCopy.AddComponent<UnityEngine.UI.Image>();
+        iconImage.sprite = GetComponentInChildren<UnityEngine.UI.Image>().sprite;
+        iconImage.raycastTarget = false; // Prevent the copy from blocking raycasts
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (item == null) return;
-
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; // Suit le curseur
+        if (dragCopy != null)
+        {
+            RectTransform copyRect = dragCopy.GetComponent<RectTransform>();
+            copyRect.position = eventData.position; // Follow the mouse position
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.alpha = 1f; // Rendre le slot opaque à nouveau
+        canvasGroup.alpha = 1f; // Restore the original slot
         canvasGroup.blocksRaycasts = true;
 
-        // Vérifie si on a relâché le drag sur un autre slot
-        if (eventData.pointerEnter != null && eventData.pointerEnter.GetComponent<InventorySlot>() != null)
+        if (dragCopy != null)
         {
-            InventorySlot targetSlot = eventData.pointerEnter.GetComponent<InventorySlot>();
-            SwapItems(targetSlot); // Échange les items entre les deux slots
+            Destroy(dragCopy); // Destroy the visual drag copy
         }
-        else
+
+        // Check for valid drop target
+        if (eventData.pointerEnter != null && eventData.pointerEnter.GetComponentInParent<InventorySlot>() != null)
         {
-            // Retourne à la position d'origine si aucun slot valide n'est trouvé
-            transform.SetParent(originalParent);
-            transform.localPosition = Vector3.zero;
+            InventorySlot targetSlot = eventData.pointerEnter.GetComponentInParent<InventorySlot>();
+            SwapItems(targetSlot);
         }
     }
 
     private void SwapItems(InventorySlot targetSlot)
     {
-        // Échange l'item entre ce slot et le slot cible
         Item tempItem = targetSlot.item;
         targetSlot.InitializeSlot(item);
         InitializeSlot(tempItem);
+    }
 
-        // Replace le slot à son parent d'origine
-        transform.SetParent(originalParent);
-        transform.localPosition = Vector3.zero;
+    public void SetItem(Item newItem)
+    {
+        item = newItem;
+        UpdateSlotUI();
+    }
+
+    public void UpdateSlotUI()
+    {
+        if (item != null)
+        {
+            icon.sprite = item.icon;
+            icon.enabled = true;
+            quantityText.text = item.quantity > 1 ? $"x{item.quantity}" : "";
+        }
+        else
+        {
+            ClearSlot();
+        }
+    }
+
+    public bool IsEmpty(){
+        return item ==null;
     }
 }

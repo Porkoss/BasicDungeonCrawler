@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     void Attacks(){
         if(Attack.IsPressed() && weapon.CanAttack()){
             weapon.GetComponent<Weapon>().Attacks();
-            Debug.Log("Attacking");
+            //Debug.Log("Attacking");
             animator.SetTrigger("Attacks");
             //swordSound.Play();
         }
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         
 
         // Afficher les items dans la console
-        FindObjectOfType<InventoryUI>().UpdateInventoryUI();
+        //FindObjectOfType<InventoryUI>().UpdateInventoryUI();
     }
 
     IEnumerator RemovePowerUp(){//not used yet
@@ -164,5 +164,4 @@ public class PlayerController : MonoBehaviour
         Jump.Disable();
         Attack.Disable();
     }
-
 }

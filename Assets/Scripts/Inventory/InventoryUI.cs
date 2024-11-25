@@ -10,7 +10,8 @@ public class InventoryUI : MonoBehaviour
 
 
     private void Start() {
-        UpdateInventoryUI();
+        //Debug.Log("Initializing Inventory UI...");
+        UpdateInventoryUICACA();
     }
     private void Update() {
         CheckItemActivation();
@@ -30,19 +31,22 @@ public class InventoryUI : MonoBehaviour
     }
     private void ActivateItemByIndex(int index)
     {
-        if (index >= 0 && index < playerInventory.items.Count)
-        {
-            var item = playerInventory.items[index];
-            Debug.Log($"Activation de l'item : {item.itemName}");
+        Transform slotTransform = inventoryPanel.GetChild(index);
+        InventorySlot slot= slotTransform.GetComponent<InventorySlot>();
+        if(!slot.IsEmpty()){
+            Item item = slot.item;
+            //Debug.Log($"Activation de l'item : {item.itemName}");
             item.ActivateItem();
-            playerInventory.RemoveItem(item);
-            UpdateInventoryUI();
+            Item itemsLeft=playerInventory.RemoveItem(item);
+            slot.InitializeSlot(itemsLeft);
         }
+
     }
 
-    public void UpdateInventoryUI()
+    public void UpdateInventoryUICACA()
     {
-        for (int i = 0; i < inventoryPanel.childCount; i++)
+        //Debug.Log("Resetting layout");
+        for (int i = 0; i < 10; i++)
         {
             Transform slotTransform = inventoryPanel.GetChild(i);
             InventorySlot slot = slotTransform.GetComponent<InventorySlot>();
@@ -59,6 +63,35 @@ public class InventoryUI : MonoBehaviour
     }
 
 
+    public void AddItemToInventoryVisual(Item item){
+        foreach (Transform slotTransform in inventoryPanel){
+            InventorySlot inventorySlot=slotTransform.GetComponent<InventorySlot>();
+            if(inventorySlot.IsEmpty()){
+                inventorySlot.InitializeSlot(item);
+                return;
+            }
+        }
+    }
+
+    public void UpdateQuantityOnVisual(Item item){
+        InventorySlot inventorySlot=FindSlotWithItem(item);
+        inventorySlot.InitializeSlot(item);
+    }
+
+    public InventorySlot FindSlotWithItem(Item targetItem)
+    {
+        // Iterate through all the child slots in the inventory panel
+        foreach (Transform slotTransform in inventoryPanel)
+        {
+            InventorySlot slot = slotTransform.GetComponent<InventorySlot>();
+            
+            if (slot != null && slot.item == targetItem) // Check if the item in the slot matches the target item
+            {
+                return slot; // Return the slot containing the item
+            }
+        }
+        return null; // Return null if no slot is found with the target item
+    }
 
 
 

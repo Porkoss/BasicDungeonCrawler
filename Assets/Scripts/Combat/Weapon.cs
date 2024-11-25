@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         attackArea.damage=damage;
-        Debug.Log("Gaining Weapon");
+        //Debug.Log("Gaining Weapon");
         bCanAttack=true;
     }
     void Update(){
@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
         if(bCanAttack && gameObject.activeSelf){
         bCanAttack=false;
         StartCoroutine(RechargeAttack());
-        Debug.Log("Weapon Attacks");
+        //Debug.Log("Weapon Attacks");
         Durability-=1;
         }
     }
@@ -58,5 +58,6 @@ public class Weapon : MonoBehaviour
         attackArea.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
+
 
 }

@@ -11,7 +11,7 @@ public class BowAnimationHandler : MonoBehaviour
     public Animator bowAnimator;
     // Start is called before the first frame update
     public void LaunchArrow(){
-        Debug.Log("Fire Arrow");
+        //Debug.Log("Fire Arrow");
         GameObject arrowInstance = Instantiate(arrowPrefab,launchPoint.transform.position,Quaternion.identity);
         arrowInstance.transform.forward=rangeEnemyAi.towardsPlayer;
     }

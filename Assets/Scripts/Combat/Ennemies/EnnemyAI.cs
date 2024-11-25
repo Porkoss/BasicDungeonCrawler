@@ -85,13 +85,13 @@ public class EnnemyAI : MonoBehaviour
         // check if angle < fieldOfView / 2
         if ( Vector3.Distance(transform.position, player.transform.position) < sightRange)
         {
-            Debug.Log("Trying to look for player");
+            //Debug.Log("Trying to look for player");
             // Check if no obstacles are in the way
             RaycastHit hit;
             if (Physics.Raycast(transform.position, directionToPlayer, out hit, sightRange))
             {
                 if(hit.collider.gameObject.CompareTag("Player")){
-                    Debug.Log("Seeing Player");
+                    //Debug.Log("Seeing Player");
                     return true;
                 }
                 

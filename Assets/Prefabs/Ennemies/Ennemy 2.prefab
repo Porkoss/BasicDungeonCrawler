@@ -738,7 +738,6 @@ MonoBehaviour:
   health: 1
   maxHealth: 1
   dropsHandler: {fileID: 0}
-  spawnManager: {fileID: 0}
 --- !u!114 &63692570321627680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,13 +827,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2661183057157255469}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5053417, y: 0.69904214, z: 0.3858362, w: 0.32726187}
-  m_LocalPosition: {x: 0.026, y: 0.07, z: 0.006}
+  m_LocalRotation: {x: 0.5705403, y: 0.74849606, z: 0.18940209, w: 0.27993622}
+  m_LocalPosition: {x: 0.057, y: 0.085, z: -0.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8944293126221288435}
-  m_LocalEulerAnglesHint: {x: -12.045, y: -240.063, z: -281.293}
+  m_LocalEulerAnglesHint: {x: 2.057, y: -219.464, z: -286.105}
 --- !u!33 &4251323348110024292
 MeshFilter:
   m_ObjectHideFlags: 0

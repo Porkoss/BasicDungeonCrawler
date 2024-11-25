@@ -8,7 +8,7 @@ public class EnemyAnimationHandler : MonoBehaviour
     public GameObject enemyWeapon;
 
     public EnnemyAI ennemyAI;
-    public float radius =1f;
+    public float radius =1.5f;
 
     public float swordLength=1f;
 
@@ -55,22 +55,16 @@ public class EnemyAnimationHandler : MonoBehaviour
             }
         }
     }
+    
 
     void Update(){
         if(bIsHitting&&canHitPlayer){
             CheckCollision();
             }
     }
-    /*
-    void OnDrawGizmos()
-    {  
-        Gizmos.color = Color.red;
 
-        // Draw a wire sphere at the enemy weapon's position with the same radius as the OverlapSphere
-        if (enemyWeapon != null) {
-            Gizmos.DrawWireSphere(enemyWeapon.transform.position, radius);
-        } 
-    }
-    */
+    
+
+    
 
 }
