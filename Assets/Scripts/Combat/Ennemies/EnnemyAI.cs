@@ -62,6 +62,8 @@ public class EnnemyAI : MonoBehaviour
                 enemyAnimator.SetBool("IsMoving",false);
             }
         }
+        float actualSpeed = agent.velocity.magnitude;
+        enemyAnimator.SetFloat("Speed", actualSpeed);
     }
 
     private void RotateTowardsPlayer(Vector3 direction)

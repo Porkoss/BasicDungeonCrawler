@@ -14,5 +14,6 @@ public class AnimationEventHandler : MonoBehaviour
         if(weapon.Durability<=0){
             weapon.BreakWeapon();
         }
+        weapon.bCanAttack=true;
     }
 }

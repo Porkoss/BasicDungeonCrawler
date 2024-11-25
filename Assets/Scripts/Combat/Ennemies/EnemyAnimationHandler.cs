@@ -32,7 +32,7 @@ public class EnemyAnimationHandler : MonoBehaviour
         ennemyAI.bCanMove=true;
     }
     public void CheckCollision() {
-        Debug.Log("Checking collision");
+        //Debug.Log("Checking collision");
         // Assuming your player has a Collider with the tag "Player"
 
         // Define the start and end points for the capsule, based on the sword's position and Y direction (up or down).

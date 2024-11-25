@@ -6,10 +6,12 @@ public class Weapon : MonoBehaviour
 {
     // Start is called before the first frame update
     public float damage=1f;
-    public AttackArea attackArea;
-    private bool bCanAttack=false;
 
-    private float attackSpeed=1;
+    public float weaponLength;
+
+    public float radius;
+    public bool bCanAttack=false;
+
 
     public int Durability;
 
@@ -20,30 +22,22 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        attackArea.damage=damage;
+        
         //Debug.Log("Gaining Weapon");
         bCanAttack=true;
     }
     void Update(){
         if(DamageFrame){
-            attackArea.gameObject.SetActive(true);
-        }
-        else{
-            attackArea.gameObject.SetActive(false);
+            CheckCollision();
         }
     }
 
     public void Attacks(){
         if(bCanAttack && gameObject.activeSelf){
-        bCanAttack=false;
-        StartCoroutine(RechargeAttack());
-        //Debug.Log("Weapon Attacks");
-        Durability-=1;
+            bCanAttack=false;
+            Debug.Log("Weapon Attacks");
+            Durability-=1;
         }
-    }
-    IEnumerator RechargeAttack(){
-        yield return new WaitForSeconds(attackSpeed);
-        bCanAttack=true;
     }
 
     public void ResetDurability(){
@@ -55,9 +49,24 @@ public class Weapon : MonoBehaviour
     }
     public void BreakWeapon(){
         
-        attackArea.gameObject.SetActive(false);
+        
         gameObject.SetActive(false);
     }
+    public void CheckCollision() 
+    {
 
+        Vector3 capsuleStart = transform.position;  
 
+        Vector3 capsuleEnd = transform.position - transform.up * weaponLength;
+
+        Collider[] hitColliders = Physics.OverlapCapsule(capsuleStart, capsuleEnd, radius); 
+        foreach (Collider hitCollider in hitColliders) {
+            if (hitCollider.CompareTag("Enemy")) {
+                Health enemyHealth = hitCollider.GetComponent<Health>();
+                if (enemyHealth != null) {
+                    enemyHealth.TakeDamage(damage);
+                }
+            }
+        }
+    }
 }

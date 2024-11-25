@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
         {
             items.Add(newItem);
             GameObject.Find("Inventory").GetComponent<InventoryUI>().AddItemToInventoryVisual(newItem);
-            Debug.Log($"{newItem.itemName} ajouté à l'inventaire.");
+            //Debug.Log($"{newItem.itemName} ajouté à l'inventaire.");
         }
         else
         {
@@ -42,7 +42,7 @@ public class Inventory : MonoBehaviour
             }
             else{
                 items.Remove(itemToRemove);
-                Debug.Log($"{itemToRemove.itemName} retiré de l'inventaire.");
+                //Debug.Log($"{itemToRemove.itemName} retiré de l'inventaire.");
                 return null;
             }
 

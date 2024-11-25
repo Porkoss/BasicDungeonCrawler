@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     public float moveSpeed=10f;
 
+    public float rotationSpeed;
+
      private float gravityValue = -9.81f;
 
      private float jumpHeight = 1.0f;
@@ -107,10 +109,17 @@ public class PlayerController : MonoBehaviour
 
         // Move the character   
         characterController.Move(move);
+
+        float speed = characterController.velocity.magnitude/6; // This calculates the speed based on movement vector magnitude
+        //Debug.Log("Speed"+characterController.velocity.magnitude);
+        animator.SetFloat("Blend", speed); // Set Speed parameter for blend tree
         if (move != Vector3.zero)
         {
-            gameObject.transform.forward = move;
+            // Smoothly rotate towards the move direction using Lerp
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
+        
         animator.SetBool("Moving", move != Vector3.zero);
     }
 
@@ -120,9 +129,12 @@ public class PlayerController : MonoBehaviour
     void Attacks(){
         if(Attack.IsPressed() && weapon.CanAttack()){
             weapon.GetComponent<Weapon>().Attacks();
-            //Debug.Log("Attacking");
+            Debug.Log("Attacking");
             animator.SetTrigger("Attacks");
             //swordSound.Play();
+        }
+        else if(Attack.IsPressed()){
+            Debug.Log("CantAttackYet");
         }
     }
 
