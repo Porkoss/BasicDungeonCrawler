@@ -35,19 +35,17 @@ public class PlayerController : MonoBehaviour
     public GameObject followingCamera;
 
     public Animator animator;
-
-    private EntitySoundManager entitySoundManager;
     
+    private EntitySoundManager entitySoundManager;
     public Weapon weapon;
     private void Awake()
     {
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
+        swordSound=GetComponent<AudioSource>();
         followingCamera=GameObject.Find("Camera");
         playerInventory=GameObject.Find("InventoryManager").GetComponent<Inventory>();
-       
     }
-
 
     public void Launch(){
         Move.Enable();
@@ -155,7 +153,6 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("Chest")){
             GameManager gameManager= GameObject.Find("GameManager").GetComponent<GameManager>();
             gameManager.ChestLooted();
-            
             Destroy(other.gameObject);
             if(activeCoroutine!=null){
                 StopCoroutine(activeCoroutine);
