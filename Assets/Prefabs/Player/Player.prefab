@@ -16,6 +16,9 @@ GameObject:
   - component: {fileID: -2888420622902875538}
   - component: {fileID: 2607986494817843200}
   - component: {fileID: 1240962867382960293}
+  - component: {fileID: 1527791829145459647}
+  - component: {fileID: 3650405809681237105}
+  - component: {fileID: -549002721497254608}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -180,6 +183,7 @@ MonoBehaviour:
   health: 10
   maxHealth: 10
   dropsHandler: {fileID: 0}
+  entitySoundManager: {fileID: 0}
 --- !u!136 &1240962867382960293
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -203,6 +207,135 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.91, z: 0}
+--- !u!82 &1527791829145459647
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144773076226872081}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &3650405809681237105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144773076226872081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ada742c398c832b469fc47d64d55c506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+--- !u!114 &-549002721497254608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144773076226872081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3521ffd902e144e96599cfe8c04eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound: {fileID: 8300000, guid: 7d17552fd1070564798989ff572b4204, type: 3}
+  damagedSound: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
+  DeathSound: {fileID: 8300000, guid: aa967a280457c054bb646d57611f5bd0, type: 3}
+  potSound: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  axeSound: {fileID: 8300000, guid: 957f2bef7af177c4c90730be008d890d, type: 3}
+  chestSound: {fileID: 8300000, guid: 18f3cc524c6db9044a90186945aed2e5, type: 3}
+  lootSound: {fileID: 8300000, guid: dd0bc586f3652df40bff48032b8a04c5, type: 3}
+  breakSound: {fileID: 8300000, guid: 399feb79ba5b73b4daddcbba4d098a80, type: 3}
 --- !u!1 &5304670154281989570
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +384,7 @@ MonoBehaviour:
   damage: 1
   weaponLength: 0.5
   radius: 1
-  attackArea: {fileID: 0}
+  bCanAttack: 0
   Durability: 0
   DamageFrame: 1
 --- !u!1001 &440790365249643476

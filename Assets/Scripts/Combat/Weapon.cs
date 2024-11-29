@@ -16,9 +16,6 @@ public class Weapon : MonoBehaviour
     public int Durability;
 
     public bool DamageFrame;
-    
-
-    
 
     void Start()
     {
@@ -51,6 +48,7 @@ public class Weapon : MonoBehaviour
         
         
         gameObject.SetActive(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<EntitySoundManager>().PlayBreakSound();
     }
     public void CheckCollision() 
     {
@@ -69,4 +67,5 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+
 }

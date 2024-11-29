@@ -19,6 +19,8 @@ public class UIHandler : MonoBehaviour
 
     public GameObject waitingText;
 
+    public GameObject pauseMenu;
+
     public GameObject player;
 
     private Health health;
@@ -26,6 +28,8 @@ public class UIHandler : MonoBehaviour
     private PlayerController playerController;
 
     private GameManager gameManager;
+
+    private bool bIsGamePaused=false;
 
     public bool bgameStarted=false;
 
@@ -36,6 +40,9 @@ public class UIHandler : MonoBehaviour
         if(bgameStarted){
             textHealth.SetText("Health: "+health.health);
             textLevel.SetText("Level : "+(gameManager.Level));
+        }
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            PauseMenu();
         }
     }
 
@@ -75,4 +82,21 @@ public class UIHandler : MonoBehaviour
         startText.SetActive(true);
         tutoText.SetActive(true);
     }
+
+    public void PauseMenu(){
+        if(bIsGamePaused){
+            pauseMenu.SetActive(false);
+            Time.timeScale=1f;
+            bIsGamePaused=false;
+        }
+        else{
+            pauseMenu.SetActive(true);
+            Time.timeScale=0f;
+            bIsGamePaused=true;
+        }
+    }
+    public void QuitGame(){
+        Application.Quit();
+    }
+
 }

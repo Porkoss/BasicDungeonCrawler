@@ -24,6 +24,7 @@ public class EnemyAnimationHandler : MonoBehaviour
     public void StartHitFrame(){
         bIsHitting=true;
         canHitPlayer=true;
+        GetComponentInParent<EntitySoundManager>().PlayAttackSound();
     }
     public void StopHitFrame(){
         bIsHitting=false;

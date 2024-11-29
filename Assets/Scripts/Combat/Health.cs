@@ -12,8 +12,11 @@ public class Health : MonoBehaviour
 
     public DropsHandler dropsHandler;
 
+    public EntitySoundManager entitySoundManager;
+
     void Start(){
         dropsHandler=GetComponent<DropsHandler>();
+        entitySoundManager=GetComponent<EntitySoundManager>();
     }
     public void TakeDamage(float damage)
     {
@@ -29,10 +32,14 @@ public class Health : MonoBehaviour
                 GameOver();
             }
         }
+        else{
+            entitySoundManager.PlayDamagedSound();
+        }
     }
     public void Die(){
         dropsHandler.GenerateDrops();
-        Destroy(gameObject);  
+        Destroy(gameObject);
+        entitySoundManager.PlayDeathSound();  
 
     }
 

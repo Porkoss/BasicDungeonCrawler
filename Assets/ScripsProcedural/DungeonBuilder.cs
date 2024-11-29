@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -307,7 +306,13 @@ public class DungeonBuilder : MonoBehaviour
         Instantiate(Room1Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
     }
     void CreateRoom2Opening(int widthActual, int lengthActual, Quaternion quaternion){
-        Instantiate(Room2OpeningAcross,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        if(length==2){
+            Instantiate(Room1Opening,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        }
+        else{
+            Instantiate(Room2OpeningAcross,new Vector3(widthActual*roomWidth,0,lengthActual*roomLength),quaternion);
+        }
+        
     }
     
     void CreateRoom3OpeningDown(int widthActual, int lengthActual, Quaternion quaternion){

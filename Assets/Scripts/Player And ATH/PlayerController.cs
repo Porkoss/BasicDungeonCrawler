@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -35,17 +36,20 @@ public class PlayerController : MonoBehaviour
     public GameObject followingCamera;
 
     public Animator animator;
+
+    private EntitySoundManager entitySoundManager;
     
-    private AudioSource swordSound;
     public Weapon weapon;
     private void Awake()
     {
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
-        swordSound=GetComponent<AudioSource>();
+        entitySoundManager=GetComponent<EntitySoundManager>();
         followingCamera=GameObject.Find("Camera");
         playerInventory=GameObject.Find("InventoryManager").GetComponent<Inventory>();
+       
     }
+
 
     public void Launch(){
         Move.Enable();
@@ -127,18 +131,18 @@ public class PlayerController : MonoBehaviour
         characterController.SimpleMove(direction*speed);
     }
     void Attacks(){
-        if(Attack.IsPressed() && weapon.CanAttack()){
+        if(Attack.IsPressed() && weapon.CanAttack()&&weapon.isActiveAndEnabled){
             weapon.GetComponent<Weapon>().Attacks();
             Debug.Log("Attacking");
             animator.SetTrigger("Attacks");
-            //swordSound.Play();
+            entitySoundManager.PlayAttackSoundDelay();
         }
         else if(Attack.IsPressed()){
             Debug.Log("CantAttackYet");
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other) 
     {
         if(other.gameObject.CompareTag("Item")){///change when otherup comes
             
@@ -146,12 +150,14 @@ public class PlayerController : MonoBehaviour
             ItemChildManager itemChildManager=new ItemChildManager();
             Item newItem=itemChildManager.CreateItem(item);
             playerInventory.AddItem(newItem);
+            entitySoundManager.PlayLootSound();
             //activeCoroutine=StartCoroutine(RemovePowerUp());
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Chest")){
             GameManager gameManager= GameObject.Find("GameManager").GetComponent<GameManager>();
             gameManager.ChestLooted();
+            
             Destroy(other.gameObject);
             if(activeCoroutine!=null){
                 StopCoroutine(activeCoroutine);

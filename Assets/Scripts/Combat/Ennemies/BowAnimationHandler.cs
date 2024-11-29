@@ -14,6 +14,7 @@ public class BowAnimationHandler : MonoBehaviour
         //Debug.Log("Fire Arrow");
         GameObject arrowInstance = Instantiate(arrowPrefab,launchPoint.transform.position,Quaternion.identity);
         arrowInstance.transform.forward=rangeEnemyAi.towardsPlayer;
+        GetComponentInParent<EntitySoundManager>().PlayAttackSound();
     }
     public void ArrowFired(){
         rangeEnemyAi.bCanMove=true;
