@@ -695,7 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a638991c1295d42b1949b4abc8ef41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 7
   attackRange: 2
   rotationSpeed: 5
   enemyAnimator: {fileID: 2538232370637789538}
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c8ecab514573e4cabb6328d560934f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyWeapon: {fileID: 4337722931942909733}
+  enemyWeapon: {fileID: 0}
   ennemyAI: {fileID: 4117198365174495747}
   radius: 1
   swordLength: 1

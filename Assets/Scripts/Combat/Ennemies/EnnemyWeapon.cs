@@ -46,7 +46,7 @@ public class EnnemyWeapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (DamageFrame && !hitObjects.Contains(other.gameObject)) {
-            //Debug.Log(other.gameObject.name);
+            Debug.Log(other.gameObject.name);
             if (other.CompareTag("Player")) {
                 Health enemyHealth = other.GetComponent<Health>();
                 if (enemyHealth != null) {

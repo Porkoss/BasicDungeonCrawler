@@ -8,14 +8,9 @@ public class EnemyAnimationHandler : MonoBehaviour
     public EnnemyWeapon enemyWeapon;
 
     public EnnemyAI ennemyAI;
-    public float radius =1.5f;
-
-    public float swordLength=1f;
-
-    public float damage=1f;
     void Start()
     {
-        enemyWeapon=GameObject.Find("1 handed sword").GetComponent<EnnemyWeapon>();
+        enemyWeapon=GetComponentInChildren<EnnemyWeapon>();
     }
 
     public void StartHitFrame(){

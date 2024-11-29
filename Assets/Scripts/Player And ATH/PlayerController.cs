@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
-        swordSound=GetComponent<AudioSource>();
+        entitySoundManager=GetComponent<EntitySoundManager>();
         followingCamera=GameObject.Find("Camera");
         playerInventory=GameObject.Find("InventoryManager").GetComponent<Inventory>();
     }

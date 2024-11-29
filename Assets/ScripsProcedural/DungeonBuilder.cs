@@ -271,7 +271,7 @@ public class DungeonBuilder : MonoBehaviour
                         InstantiateRandomPrefab(bonusPrefabs, position,0.5f);
                         break;
                     case 'E': // Enemy
-                        InstantiateRandomPrefab(enemyPrefabs, position,0f);
+                        InstantiateRandomPrefab(enemyPrefabs, position,0.3f);
                         break;
                     case 'C': // Chest
                         InstantiateRandomPrefab(chestPrefabs, position,0);
