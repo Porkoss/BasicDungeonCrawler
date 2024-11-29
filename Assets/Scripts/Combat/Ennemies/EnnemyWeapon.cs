@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class EnnemyWeapon : MonoBehaviour
 {
     // Start is called before the first frame update
     public float damage=1f;
@@ -16,8 +16,7 @@ public class Weapon : MonoBehaviour
     private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
 
     void Start()
-    {
-        
+    {   
         //Debug.Log("Gaining Weapon");
         bCanAttack=true;
     }
@@ -48,7 +47,7 @@ public class Weapon : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (DamageFrame && !hitObjects.Contains(other.gameObject)) {
             //Debug.Log(other.gameObject.name);
-            if (other.CompareTag("Enemy")) {
+            if (other.CompareTag("Player")) {
                 Health enemyHealth = other.GetComponent<Health>();
                 if (enemyHealth != null) {
                     enemyHealth.TakeDamage(damage);

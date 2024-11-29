@@ -2237,7 +2237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchPoint: {fileID: 4445940779575495228}
-  arrowPrefab: {fileID: 7844061465108578896, guid: 649115b349b0c664b87beda53934f7ba, type: 3}
+  arrowPrefab:
+  - {fileID: 7844061465108578896, guid: 3a32a4b568e20cc408735a4b0fd5c8ed, type: 3}
+  - {fileID: 7844061465108578896, guid: 649115b349b0c664b87beda53934f7ba, type: 3}
   rangeEnemyAi: {fileID: 1889928279247225111}
   bowAnimator: {fileID: 1855027661356694703}
 --- !u!1 &5924284893973983402

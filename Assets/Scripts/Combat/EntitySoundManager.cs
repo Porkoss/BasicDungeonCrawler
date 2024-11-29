@@ -58,7 +58,7 @@ public class EntitySoundManager : MonoBehaviour
     }
 
     public void PlayLootSound(){
-        Debug.Log("Loot sound");
+        //Debug.Log("Loot sound");
         audioSource.PlayOneShot(lootSound,0.5f);
     }
 

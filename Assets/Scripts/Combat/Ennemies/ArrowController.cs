@@ -7,6 +7,8 @@ public class ArrowController : MonoBehaviour
     // Start is called before the first frame update
     private Rigidbody rigidBody;
     public float arrowLifeSpan=5f;
+
+    public float Damage=1f;
     
     public float arrowForce=10f;
     void Start()
@@ -30,7 +32,7 @@ public class ArrowController : MonoBehaviour
         }
         if(collider.CompareTag("Player")){
             Health health=collider.gameObject.GetComponent<Health>();
-            health.TakeDamage(1);
+            health.TakeDamage(Damage);
             Destroy(gameObject);
         }
     }

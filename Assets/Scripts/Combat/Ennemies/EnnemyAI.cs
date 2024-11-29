@@ -11,7 +11,6 @@ public class EnnemyAI : MonoBehaviour
     public float attackRange=1f;
     public float rotationSpeed = 5f;
     private GameObject player;
-    
 
     public Animator enemyAnimator;
     public Vector3 towardsPlayer;
@@ -34,7 +33,6 @@ public class EnnemyAI : MonoBehaviour
     void Start()
     {
         agent=GetComponent<NavMeshAgent>();
-
         player=GameObject.FindGameObjectsWithTag("Player")[0];
         bCanMove=true;
     }

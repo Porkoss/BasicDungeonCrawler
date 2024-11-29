@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -44,7 +43,6 @@ public class PlayerController : MonoBehaviour
     {
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
-        entitySoundManager=GetComponent<EntitySoundManager>();
         followingCamera=GameObject.Find("Camera");
         playerInventory=GameObject.Find("InventoryManager").GetComponent<Inventory>();
        
@@ -131,18 +129,18 @@ public class PlayerController : MonoBehaviour
         characterController.SimpleMove(direction*speed);
     }
     void Attacks(){
-        if(Attack.IsPressed() && weapon.CanAttack()&&weapon.isActiveAndEnabled){
+        if(Attack.IsPressed() && weapon.CanAttack()){
             weapon.GetComponent<Weapon>().Attacks();
-            Debug.Log("Attacking");
+            //Debug.Log("Attacking");
             animator.SetTrigger("Attacks");
             entitySoundManager.PlayAttackSoundDelay();
         }
         else if(Attack.IsPressed()){
-            Debug.Log("CantAttackYet");
+            //Debug.Log("CantAttackYet");
         }
     }
 
-    void OnTriggerEnter(Collider other) 
+    void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Item")){///change when otherup comes
             

@@ -755,6 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropPrefabs:
   - {fileID: 1710415460035626178, guid: ad1ec14d18c76df4e96fc0ecc5f2f9d6, type: 3}
+  - {fileID: 1523501636870356823, guid: 6b080876e363024439ab5d34082686a0, type: 3}
 --- !u!195 &8177176097705403655
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -931,6 +932,9 @@ GameObject:
   - component: {fileID: 7810475096352054019}
   - component: {fileID: 4251323348110024292}
   - component: {fileID: 5353300735539553710}
+  - component: {fileID: 8158568960406943950}
+  - component: {fileID: 4051384621417639232}
+  - component: {fileID: 4337722931942909733}
   m_Layer: 0
   m_Name: 1 handed sword
   m_TagString: Untagged
@@ -1007,6 +1011,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &8158568960406943950
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661183057157255469}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &4051384621417639232
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661183057157255469}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1490614
+  m_Height: 1.3145828
+  m_Direction: 1
+  m_Center: {x: -0.00000087987024, y: -0.49529102, z: -0.00000024948918}
+--- !u!114 &4337722931942909733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661183057157255469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aba6eff1800dc4e4786f594cf5a5d67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  bCanAttack: 0
+  Durability: 0
+  DamageFrame: 0
 --- !u!1 &2963960309250912947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,7 +1241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c8ecab514573e4cabb6328d560934f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyWeapon: {fileID: 0}
+  enemyWeapon: {fileID: 4337722931942909733}
   ennemyAI: {fileID: 4117198365174495747}
   radius: 1
   swordLength: 1
