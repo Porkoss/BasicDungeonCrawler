@@ -1824,6 +1824,8 @@ GameObject:
   - component: {fileID: 6656953813089027355}
   - component: {fileID: 5433374899922146992}
   - component: {fileID: 7444441583924730754}
+  - component: {fileID: 4754133114181674920}
+  - component: {fileID: -4552769642561331107}
   m_Layer: 0
   m_Name: Ennemy Archer
   m_TagString: Enemy
@@ -1954,7 +1956,7 @@ MonoBehaviour:
   health: 1
   maxHealth: 1
   dropsHandler: {fileID: 0}
-  spawnManager: {fileID: 0}
+  entitySoundManager: {fileID: 0}
 --- !u!114 &6656953813089027355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2018,6 +2020,122 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4754133114181674920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185563180801784583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3521ffd902e144e96599cfe8c04eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSound: {fileID: 8300000, guid: 7d17552fd1070564798989ff572b4204, type: 3}
+  damagedSound: {fileID: 8300000, guid: 7c47b20bb9874304a809dc5580d403ba, type: 3}
+  DeathSound: {fileID: 8300000, guid: e840c93b079727846af99eca2e948af7, type: 3}
+  potSound: {fileID: 0}
+  axeSound: {fileID: 0}
+  chestSound: {fileID: 0}
+  lootSound: {fileID: 0}
+  breakSound: {fileID: 0}
+--- !u!82 &-4552769642561331107
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5185563180801784583}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5559301525273887423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2119,7 +2237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchPoint: {fileID: 4445940779575495228}
-  arrowPrefab: {fileID: 7844061465108578896, guid: 649115b349b0c664b87beda53934f7ba, type: 3}
+  arrowPrefab:
+  - {fileID: 7844061465108578896, guid: 3a32a4b568e20cc408735a4b0fd5c8ed, type: 3}
+  - {fileID: 7844061465108578896, guid: 649115b349b0c664b87beda53934f7ba, type: 3}
   rangeEnemyAi: {fileID: 1889928279247225111}
   bowAnimator: {fileID: 1855027661356694703}
 --- !u!1 &5924284893973983402

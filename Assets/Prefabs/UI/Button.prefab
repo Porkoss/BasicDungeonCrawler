@@ -280,6 +280,8 @@ GameObject:
   - component: {fileID: 4327986725573676903}
   - component: {fileID: 7116029212207742518}
   - component: {fileID: 43592025800523316}
+  - component: {fileID: 497779671919372036}
+  - component: {fileID: 3316613657259434515}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -390,3 +392,36 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &497779671919372036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033922441277774464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f1a8248ff036147a5bd0792b02e16c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    itemName: 
+    icon: {fileID: 0}
+    quantity: 0
+    isStackable: 0
+    type: 
+  icon: {fileID: 0}
+  quantityText: {fileID: 0}
+  originalParent: {fileID: 0}
+--- !u!225 &3316613657259434515
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033922441277774464}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

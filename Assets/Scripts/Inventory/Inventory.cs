@@ -15,6 +15,7 @@ public class Inventory : MonoBehaviour
             if (existingItem != null)
             {
                 existingItem.quantity += newItem.quantity;
+                GameObject.Find("Inventory").GetComponent<InventoryUI>().UpdateQuantityOnVisual(existingItem);
                 return;
             }
         }
@@ -22,7 +23,8 @@ public class Inventory : MonoBehaviour
         if (items.Count < maxSlots)
         {
             items.Add(newItem);
-            Debug.Log($"{newItem.itemName} ajouté à l'inventaire.");
+            GameObject.Find("Inventory").GetComponent<InventoryUI>().AddItemToInventoryVisual(newItem);
+            //Debug.Log($"{newItem.itemName} ajouté à l'inventaire.");
         }
         else
         {
@@ -30,13 +32,22 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void RemoveItem(Item itemToRemove)
+    public Item RemoveItem(Item itemToRemove)
     {
         if (items.Contains(itemToRemove))
         {
-            items.Remove(itemToRemove);
-            Debug.Log($"{itemToRemove.itemName} retiré de l'inventaire.");
+            if(itemToRemove.quantity>1){
+                itemToRemove.quantity--;
+                return itemToRemove;
+            }
+            else{
+                items.Remove(itemToRemove);
+                //Debug.Log($"{itemToRemove.itemName} retiré de l'inventaire.");
+                return null;
+            }
+
         }
+        return null;
     }
 
     public void PrintInventory()

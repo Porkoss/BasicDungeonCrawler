@@ -6,74 +6,61 @@ public class Weapon : MonoBehaviour
 {
     // Start is called before the first frame update
     public float damage=1f;
-    public AttackArea attackArea;
-    private bool bCanAttack=false;
 
-    private float attackSpeed=1;
+    public bool bCanAttack=false;
 
     public int Durability;
 
     public bool DamageFrame;
-    
 
-    
+    private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
 
     void Start()
     {
-        attackArea.damage=damage;
-        Debug.Log("Gaining Weapon");
+        
+        //Debug.Log("Gaining Weapon");
         bCanAttack=true;
-    }
-    void Update(){
-        if(DamageFrame){
-            attackArea.gameObject.SetActive(true);
-        }
-        else{
-            attackArea.gameObject.SetActive(false);
-        }
     }
 
     public void Attacks(){
         if(bCanAttack && gameObject.activeSelf){
-        bCanAttack=false;
-        StartCoroutine(RechargeAttack());
-        Debug.Log("Weapon Attacks");
-        Durability-=1;
-        if(Durability<=0){
-            StopCoroutine(RechargeAttack());
             bCanAttack=false;
-            StartCoroutine(BreakWeapon());
-        }   
+            //Debug.Log("Weapon Attacks");
+            Durability-=1;
         }
-    }
-    IEnumerator RechargeAttack(){
-        yield return new WaitForSeconds(attackSpeed);
-        bCanAttack=true;
     }
 
     public void ResetDurability(){
         Durability=3;
         bCanAttack=true;
     }
-
-    IEnumerator BreakWeapon(){
-        yield return new WaitForSeconds(Time.deltaTime*60);
-        attackArea.gameObject.SetActive(false);
-        gameObject.SetActive(false);
-        GenerateWeaponIfNoWeapon();
-    }
-
     public bool CanAttack(){
         return bCanAttack;
     }
-
-
-    void GenerateWeaponIfNoWeapon(){
+    public void BreakWeapon(){
         
-        int weaponCount=GameObject.FindGameObjectsWithTag("PowerUp").Length;
-        if(weaponCount<1){
-            GameObject.Find("SpawnManager").GetComponent<SpawnManager>().SpawnWeapon();
-        }
         
+        gameObject.SetActive(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<EntitySoundManager>().PlayBreakSound();
     }
+
+
+    private void OnTriggerEnter(Collider other) {
+        if (DamageFrame && !hitObjects.Contains(other.gameObject)) {
+            //Debug.Log(other.gameObject.name);
+            if (other.CompareTag("Enemy")) {
+                Health enemyHealth = other.GetComponent<Health>();
+                if (enemyHealth != null) {
+                    enemyHealth.TakeDamage(damage);
+                    hitObjects.Add(other.gameObject);
+                }
+            }
+        }
+    }
+
+    private void Update() {
+    if (!DamageFrame) {
+        hitObjects.Clear(); // Reset when the damage frame ends
+    }
+}
 }

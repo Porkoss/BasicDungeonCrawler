@@ -81,7 +81,7 @@ private IEnumerator InitializeAfterSceneLoad()
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     public void GenerateLevel(){
-        dungeonBuilder.Launch();
+        dungeonBuilder.Launch(Level+2,Level+2);
     }
 
     

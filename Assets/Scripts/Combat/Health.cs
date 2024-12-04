@@ -11,12 +11,12 @@ public class Health : MonoBehaviour
     public float maxHealth=1;
 
     public DropsHandler dropsHandler;
-    
 
-    public SpawnManager spawnManager;
+    public EntitySoundManager entitySoundManager;
 
     void Start(){
         dropsHandler=GetComponent<DropsHandler>();
+        entitySoundManager=GetComponent<EntitySoundManager>();
     }
     public void TakeDamage(float damage)
     {
@@ -32,10 +32,14 @@ public class Health : MonoBehaviour
                 GameOver();
             }
         }
+        else{
+            entitySoundManager.PlayDamagedSound();
+        }
     }
     public void Die(){
         dropsHandler.GenerateDrops();
-        Destroy(gameObject);  
+        Destroy(gameObject);
+        entitySoundManager.PlayDeathSound();  
 
     }
 
@@ -53,7 +57,7 @@ public class Health : MonoBehaviour
 
     public void Heal(float healthRecovered){
         health+=healthRecovered;
-        if(health<maxHealth){
+        if(health>maxHealth){
 
             health=maxHealth;
         }

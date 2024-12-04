@@ -11,6 +11,7 @@ public class HealthPot : Item
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Health health = player.GetComponent<Health>();
         health.Heal(healthRecovered);
+        player.GetComponent<EntitySoundManager>().PlayPotSound();
     }
 
     public HealthPot(ItemMono item) : base(item.itemName, item.icon, item.quantity, item.isStackable, item.type)

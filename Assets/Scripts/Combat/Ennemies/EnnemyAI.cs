@@ -11,7 +11,6 @@ public class EnnemyAI : MonoBehaviour
     public float attackRange=1f;
     public float rotationSpeed = 5f;
     private GameObject player;
-    
 
     public Animator enemyAnimator;
     public Vector3 towardsPlayer;
@@ -34,7 +33,6 @@ public class EnnemyAI : MonoBehaviour
     void Start()
     {
         agent=GetComponent<NavMeshAgent>();
-
         player=GameObject.FindGameObjectsWithTag("Player")[0];
         bCanMove=true;
     }
@@ -62,6 +60,8 @@ public class EnnemyAI : MonoBehaviour
                 enemyAnimator.SetBool("IsMoving",false);
             }
         }
+        float actualSpeed = agent.velocity.magnitude;
+        enemyAnimator.SetFloat("Speed", actualSpeed);
     }
 
     private void RotateTowardsPlayer(Vector3 direction)
@@ -85,13 +85,13 @@ public class EnnemyAI : MonoBehaviour
         // check if angle < fieldOfView / 2
         if ( Vector3.Distance(transform.position, player.transform.position) < sightRange)
         {
-            Debug.Log("Trying to look for player");
+            //Debug.Log("Trying to look for player");
             // Check if no obstacles are in the way
             RaycastHit hit;
             if (Physics.Raycast(transform.position, directionToPlayer, out hit, sightRange))
             {
                 if(hit.collider.gameObject.CompareTag("Player")){
-                    Debug.Log("Seeing Player");
+                    //Debug.Log("Seeing Player");
                     return true;
                 }
                 

@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     public float moveSpeed=10f;
 
+    public float rotationSpeed;
+
      private float gravityValue = -9.81f;
 
      private float jumpHeight = 1.0f;
@@ -34,13 +36,13 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     
-    private AudioSource swordSound;
+    private EntitySoundManager entitySoundManager;
     public Weapon weapon;
     private void Awake()
     {
         playerControls=new PlayerControls();
         characterController=GetComponent<CharacterController>();
-        swordSound=GetComponent<AudioSource>();
+        entitySoundManager=GetComponent<EntitySoundManager>();
         followingCamera=GameObject.Find("Camera");
         playerInventory=GameObject.Find("InventoryManager").GetComponent<Inventory>();
     }
@@ -107,10 +109,17 @@ public class PlayerController : MonoBehaviour
 
         // Move the character   
         characterController.Move(move);
+
+        float speed = characterController.velocity.magnitude/6; // This calculates the speed based on movement vector magnitude
+        //Debug.Log("Speed"+characterController.velocity.magnitude);
+        animator.SetFloat("Blend", speed); // Set Speed parameter for blend tree
         if (move != Vector3.zero)
         {
-            gameObject.transform.forward = move;
+            // Smoothly rotate towards the move direction using Lerp
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
+        
         animator.SetBool("Moving", move != Vector3.zero);
     }
 
@@ -120,9 +129,12 @@ public class PlayerController : MonoBehaviour
     void Attacks(){
         if(Attack.IsPressed() && weapon.CanAttack()){
             weapon.GetComponent<Weapon>().Attacks();
-            Debug.Log("Attacking");
+            //Debug.Log("Attacking");
             animator.SetTrigger("Attacks");
-            //swordSound.Play();
+            entitySoundManager.PlayAttackSoundDelay();
+        }
+        else if(Attack.IsPressed()){
+            //Debug.Log("CantAttackYet");
         }
     }
 
@@ -131,8 +143,10 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Item")){///change when otherup comes
             
             ItemMono item=other.gameObject.GetComponent<ItemMono>();
-            Item newItem=new Item(item);
+            ItemChildManager itemChildManager=new ItemChildManager();
+            Item newItem=itemChildManager.CreateItem(item);
             playerInventory.AddItem(newItem);
+            entitySoundManager.PlayLootSound();
             //activeCoroutine=StartCoroutine(RemovePowerUp());
             Destroy(other.gameObject);
         }
@@ -150,7 +164,7 @@ public class PlayerController : MonoBehaviour
         
 
         // Afficher les items dans la console
-        FindObjectOfType<InventoryUI>().UpdateInventoryUI();
+        //FindObjectOfType<InventoryUI>().UpdateInventoryUI();
     }
 
     IEnumerator RemovePowerUp(){//not used yet
@@ -163,5 +177,4 @@ public class PlayerController : MonoBehaviour
         Jump.Disable();
         Attack.Disable();
     }
-
 }

@@ -5,51 +5,106 @@ using TMPro;
 public class InventoryUI : MonoBehaviour
 {
     public Inventory playerInventory; // Référence à l'inventaire du joueur
-    public GameObject buttonPrefab;  // Prefab pour chaque item
+    public GameObject slotPrefab;  // Prefab pour chaque item
     public Transform inventoryPanel; // Le parent contenant les boutons (Panel avec Grid Layout Group)
 
-    public void UpdateInventoryUI()
+
+    private void Start() {
+        //Debug.Log("Initializing Inventory UI...");
+        UpdateInventoryUICACA();
+    }
+    private void Update() {
+        CheckItemActivation();
+    }
+
+    private void CheckItemActivation()
     {
-        // Supprime tous les anciens boutons avant d'en ajouter de nouveaux
-        foreach (Transform child in inventoryPanel)
+        for (int i = 0; i < 10; i++)
         {
-            Destroy(child.gameObject);
+            // Vérifie si une touche numérique correspondant à l'index est pressée
+            if (Input.GetKeyDown(KeyCode.Alpha1 + i)) // Alpha1 correspond à la touche "1"
+            {
+                ActivateItemByIndex(i);
+                break; // Stoppe la boucle après avoir trouvé l'index
+            }
+        }
+    }
+    private void ActivateItemByIndex(int index)
+    {
+        Transform slotTransform = inventoryPanel.GetChild(index);
+        InventorySlot slot= slotTransform.GetComponent<InventorySlot>();
+        if(!slot.IsEmpty()){
+            Item item = slot.item;
+            //Debug.Log($"Activation de l'item : {item.itemName}");
+            item.ActivateItem();
+            Item itemsLeft=playerInventory.RemoveItem(item);
+            slot.InitializeSlot(itemsLeft);
         }
 
-        // Parcourt tous les items de l'inventaire
-        foreach (var item in playerInventory.items)
+    }
+
+    public void UpdateInventoryUICACA()
+    {
+        //Debug.Log("Resetting layout");
+        for (int i = 0; i < 10; i++)
         {
-            //Debug.Log($"Création du bouton pour : {item.itemName}"); // Debug pour chaque item
-            // Instancie un bouton à partir du prefab
-            GameObject newButton = Instantiate(buttonPrefab, inventoryPanel);
+            Transform slotTransform = inventoryPanel.GetChild(i);
+            InventorySlot slot = slotTransform.GetComponent<InventorySlot>();
 
-            // Configure le bouton
-            newButton.GetComponentInChildren<TextMeshProUGUI>().text = item.itemName; // Affiche le nom de l'item
-
-
-            TextMeshProUGUI quantityText = newButton.transform.Find("QuantityText")?.GetComponent<TextMeshProUGUI>();//affiche quantité
-            quantityText.text = $"x{item.quantity}";
-            newButton.GetComponent<Button>().onClick.AddListener(() => OnItemButtonClicked(item));
-
-            // Optionnel : Associe une icône
-            if (item.icon != null)
+            if (i < playerInventory.items.Count)
             {
-                Image iconImage = newButton.GetComponentInChildren<Image>();
-                if (iconImage != null)
-                {
-                    iconImage.sprite = item.icon;
-                }
+                slot.InitializeSlot(playerInventory.items[i]);
+            }
+            else
+            {
+                slot.ClearSlot();
             }
         }
     }
 
+
+    public void AddItemToInventoryVisual(Item item){
+        foreach (Transform slotTransform in inventoryPanel){
+            InventorySlot inventorySlot=slotTransform.GetComponent<InventorySlot>();
+            if(inventorySlot.IsEmpty()){
+                inventorySlot.InitializeSlot(item);
+                return;
+            }
+        }
+    }
+
+    public void UpdateQuantityOnVisual(Item item){
+        InventorySlot inventorySlot=FindSlotWithItem(item);
+        inventorySlot.InitializeSlot(item);
+    }
+
+    public InventorySlot FindSlotWithItem(Item targetItem)
+    {
+        // Iterate through all the child slots in the inventory panel
+        foreach (Transform slotTransform in inventoryPanel)
+        {
+            InventorySlot slot = slotTransform.GetComponent<InventorySlot>();
+            
+            if (slot != null && slot.item == targetItem) // Check if the item in the slot matches the target item
+            {
+                return slot; // Return the slot containing the item
+            }
+        }
+        return null; // Return null if no slot is found with the target item
+    }
+
+
+
+    /*
     private void OnItemButtonClicked(Item item)
     {
         item.ActivateItem();
         playerInventory.RemoveItem(item);
-        FindObjectOfType<InventoryUI>().UpdateInventoryUI();
+        
+        UpdateInventoryUI();
 
         // Ajoute ici une action comme afficher un panneau de détails ou utiliser l'item
         
     }
+    */
 }
