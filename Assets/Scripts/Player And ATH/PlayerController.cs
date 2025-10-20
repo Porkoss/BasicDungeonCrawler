@@ -15,10 +15,14 @@ public class PlayerController : MonoBehaviour
 
      private float jumpHeight = 1.0f;
 
+    public bool isRightClickHeld=false;
+
     public PlayerControls playerControls;
     private InputAction Move;
     private InputAction Jump;
     private InputAction Attack;
+
+    private InputAction Aim;
     
     public Inventory playerInventory;
     public bool bIsOnGround;
@@ -36,8 +40,14 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     
-    private EntitySoundManager entitySoundManager;
+    public EntitySoundManager entitySoundManager;
     public Weapon weapon;
+
+    public Bow bow;
+
+    public bool usingBow=false;
+
+    
     private void Awake()
     {
         playerControls=new PlayerControls();
@@ -51,6 +61,7 @@ public class PlayerController : MonoBehaviour
         Move.Enable();
         Jump.Enable();
         Attack.Enable();
+        Aim.Enable();
     }
     
     private void  OnEnable()
@@ -58,21 +69,39 @@ public class PlayerController : MonoBehaviour
         Move=playerControls.Player.Move;      
         Jump=playerControls.Player.Jump;        
         Attack=playerControls.Player.Fire;
+        Aim=playerControls.Player.Aim;
         //Move.Disable();
         //Jump.Disable();
         //Attack.Disable();
     }
+
     private void  OnDisable()
     {
         Move.Disable();
         Jump.Disable();
         Attack.Disable();
+        Aim.Disable();
+
+    }
+
+    void RightClickStarted(){
+        isRightClickHeld = true;
+        bow.IsAiming=true;
+        Debug.Log("RightClicked");
+    }
+
+    void RightClickCanceled(){
+        isRightClickHeld = false;
+        bow.IsAiming=false;
+        bow.TryToLaunchArrow();
+        Debug.Log("EndRightCLick");
     }
     
     // Update is called once per frame
     void Update()
     {
         bIsOnGround=characterController.isGrounded;
+        animator.SetBool("Grounded", bIsOnGround);
         Moves();
         Jumps();
         playerVelocity.y += gravityValue * Time.deltaTime;
@@ -80,13 +109,24 @@ public class PlayerController : MonoBehaviour
 
         Attacks();
 
+        Aims();
         //followingCamera.transform.position=transform.position + new Vector3(0,8,-5);
+    }
+
+    void Aims(){
+        if(isRightClickHeld==true && !Aim.IsPressed()){
+            RightClickCanceled();
+        }
+        if(isRightClickHeld==false &&Aim.IsPressed()){
+            RightClickStarted();
+        }
     }
 
     void Jumps(){
         
         if(Jump.IsPressed()&&bIsOnGround){
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            animator.SetTrigger("Jumps");
             //Debug.Log(playerVelocity.y);
         }
     }
@@ -120,7 +160,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
         
-        animator.SetBool("Moving", move != Vector3.zero);
+        //animator.SetBool("Moving", move != Vector3.zero);
     }
 
     public void GettingPushed(Vector3 direction,float speed){
@@ -130,13 +170,14 @@ public class PlayerController : MonoBehaviour
         if(Attack.IsPressed() && weapon.CanAttack()){
             weapon.GetComponent<Weapon>().Attacks();
             //Debug.Log("Attacking");
-            animator.SetTrigger("Attacks");
-            entitySoundManager.PlayAttackSoundDelay();
+            //animator.SetTrigger("Attacks"); 
+            //entitySoundManager.PlayAttackSoundDelay();
         }
         else if(Attack.IsPressed()){
             //Debug.Log("CantAttackYet");
         }
     }
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -176,5 +217,7 @@ public class PlayerController : MonoBehaviour
         Move.Disable();
         Jump.Disable();
         Attack.Disable();
+        Aim.Disable();
     }
+
 }

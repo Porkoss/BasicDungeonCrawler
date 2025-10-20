@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
             return;
         }
         // Handle camera rotation when the right mouse button is held down
-        if (Input.GetMouseButton(1)) // Right-click
+        if (Input.GetMouseButton(2)) // Center click
         {
             // Hide the cursor while rotating
             Cursor.lockState = CursorLockMode.Locked;

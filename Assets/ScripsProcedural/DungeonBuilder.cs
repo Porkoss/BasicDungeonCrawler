@@ -29,8 +29,8 @@ public class DungeonBuilder : MonoBehaviour
     public GridDataSO StartGrid;
     public GridDataSO EndGrid;
 
-    public static int width; 
-    public static int length; 
+    public int width;
+    public int length;
 
     public bool EndReached;
 
@@ -43,7 +43,7 @@ public class DungeonBuilder : MonoBehaviour
     public GameManager gameManager;
 
     public void Launch(int NewWidth,int NewLength){
-        width=NewWidth;
+        width = NewWidth;
         length=NewLength;
         grid= new int[width, length];
         StartCoroutine(SequencerLaunch());

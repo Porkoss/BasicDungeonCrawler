@@ -15,18 +15,22 @@ public class Weapon : MonoBehaviour
 
     private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
 
+    protected PlayerController player;
+
     void Start()
     {
         
         //Debug.Log("Gaining Weapon");
-        bCanAttack=true;
+        player=GetComponentInParent<PlayerController>();
     }
 
-    public void Attacks(){
+    public virtual void Attacks(){
         if(bCanAttack && gameObject.activeSelf){
             bCanAttack=false;
             //Debug.Log("Weapon Attacks");
             Durability-=1;
+            player.animator.SetTrigger("Attacks");
+            player.entitySoundManager.PlayAttackSoundDelay();
         }
     }
 
@@ -39,7 +43,7 @@ public class Weapon : MonoBehaviour
     }
     public void BreakWeapon(){
         
-        
+        bCanAttack=false;
         gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<EntitySoundManager>().PlayBreakSound();
     }
