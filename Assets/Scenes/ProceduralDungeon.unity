@@ -818,6 +818,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &485654302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 485654304}
+  - component: {fileID: 485654303}
+  m_Layer: 0
+  m_Name: DungeonBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &485654303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485654302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd98ee616b20034f9e88660df0ab13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Room1Opening: {fileID: 6985472267691220496, guid: d6fbcfb805db48a46b4fab65a34fb7c5, type: 3}
+  Room2OpeningAcross: {fileID: 1253193795200672879, guid: 83af0f773c4a63b409eb7eb7127afcf2, type: 3}
+  Room2OpeningAngle: {fileID: 4217195421890101056, guid: f5974f2ba452fd94b822f7c0df265b80, type: 3}
+  Room3Opening: {fileID: 8277187664381752308, guid: 74f98c2ca8b361c45a1cb1126dad2c5e, type: 3}
+  Room4Opening: {fileID: 9176351450343728120, guid: 8b78c9cfebbd9f24697a1b75ba798ab8, type: 3}
+  EndRoom: {fileID: 7446637794039618744, guid: 40edcce67b0529a4fb269fd69ce59882, type: 3}
+  navMeshSurface: {fileID: 1746182566}
+  bigDecorationPrefabs:
+  - {fileID: 3860889156891032652, guid: 16efe0b2fb2cda0438db1ede8bbde847, type: 3}
+  smallDecorationPrefabs: []
+  trapPrefabs: []
+  bonusPrefabs: []
+  enemyPrefabs: []
+  chestPrefabs:
+  - {fileID: 8463630893345568091, guid: 9dc98616f1f5a0b45b8331adaf7399bf, type: 3}
+  playerPrefab: {fileID: 144773076226872081, guid: 73d55e6c3c8c0334d9c7e72e0e33d9fe, type: 3}
+  gridDataList: []
+  StartGrid: {fileID: 0}
+  EndGrid: {fileID: 0}
+  width: 0
+  length: 0
+  EndReached: 0
+  roomWidth: 20
+  roomLength: 20
+  gameManager: {fileID: 0}
+--- !u!4 &485654304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485654302}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &529835813
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,45 +2813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f3f0c996bbc874a83244f7ab8e55c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Room1Opening: {fileID: 6985472267691220496, guid: d6fbcfb805db48a46b4fab65a34fb7c5, type: 3}
-  Room2OpeningAcross: {fileID: 1253193795200672879, guid: 83af0f773c4a63b409eb7eb7127afcf2, type: 3}
-  Room2OpeningAngle: {fileID: 4217195421890101056, guid: f5974f2ba452fd94b822f7c0df265b80, type: 3}
-  Room3Opening: {fileID: 8277187664381752308, guid: 74f98c2ca8b361c45a1cb1126dad2c5e, type: 3}
-  Room4Opening: {fileID: 9176351450343728120, guid: 8b78c9cfebbd9f24697a1b75ba798ab8, type: 3}
-  EndRoom: {fileID: 7446637794039618744, guid: 40edcce67b0529a4fb269fd69ce59882, type: 3}
-  navMeshSurface: {fileID: 1746182566}
-  bigDecorationPrefabs:
-  - {fileID: 5423295452765798479, guid: 820f12b50ec4cd040b89a486364176c4, type: 3}
-  - {fileID: 2049546725573782226, guid: 8f8f914b6ed215541a1e7d9e5a26216d, type: 3}
-  - {fileID: 3860889156891032652, guid: 16efe0b2fb2cda0438db1ede8bbde847, type: 3}
-  smallDecorationPrefabs:
-  - {fileID: 834580409591663191, guid: c0c4ba2d9ee7511409d67e0f924bdd84, type: 3}
-  - {fileID: 1039340243952186239, guid: 8845575775454444bafd64a66c51b1b7, type: 3}
-  - {fileID: 903304280116781552, guid: 5b6ee974029ca3648944e53ae48ae3c7, type: 3}
-  - {fileID: 1035740722832125004, guid: 27cbf00ec4a6c7844bc3400f1cd5e290, type: 3}
-  - {fileID: 1181523072015408542, guid: 14467e043aff5964ea6b41dd5d5487f3, type: 3}
-  trapPrefabs:
-  - {fileID: 101680035568285188, guid: c94ed4b75d44f9544ab3534f054584f0, type: 3}
-  bonusPrefabs:
-  - {fileID: 1710415460035626178, guid: ad1ec14d18c76df4e96fc0ecc5f2f9d6, type: 3}
-  - {fileID: 1523501636870356823, guid: 6b080876e363024439ab5d34082686a0, type: 3}
-  enemyPrefabs:
-  - {fileID: 2471678531015516614, guid: 1350dcc2f4ecab245a822dd646bed9a0, type: 3}
-  - {fileID: 5185563180801784583, guid: d9063579914573f4a82fae743655b600, type: 3}
-  chestPrefabs:
-  - {fileID: 8463630893345568091, guid: 9dc98616f1f5a0b45b8331adaf7399bf, type: 3}
-  playerPrefab: {fileID: 144773076226872081, guid: 73d55e6c3c8c0334d9c7e72e0e33d9fe, type: 3}
-  gridDataList:
-  - {fileID: 11400000, guid: 2b5143a4ea4c18e438730705c2a736a5, type: 2}
-  - {fileID: 11400000, guid: bf8fcf1723351d84e9adf9ffbacbe1b4, type: 2}
-  - {fileID: 11400000, guid: 2ca3cffd8fe14cc47b79248e1a9a1a7d, type: 2}
-  - {fileID: 11400000, guid: d8237f8b8b9a09d488b409dad4a089ea, type: 2}
-  StartGrid: {fileID: 11400000, guid: 989d6508250bc46438f88152aa992317, type: 2}
-  EndGrid: {fileID: 11400000, guid: e500852365e5ddb4b82a8c61b0a83632, type: 2}
-  EndReached: 0
-  roomWidth: 20
-  roomLength: 20
-  gameManager: {fileID: 195113240}
 --- !u!1001 &1509182699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3947,3 +3977,4 @@ SceneRoots:
   - {fileID: 196818704}
   - {fileID: 634406265}
   - {fileID: 1540736635}
+  - {fileID: 485654304}
