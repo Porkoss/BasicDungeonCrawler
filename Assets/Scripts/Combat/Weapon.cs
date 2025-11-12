@@ -7,16 +7,14 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     public float damage=1f;
     public AttackArea attackArea;
-    private bool bCanAttack=false;
+    public bool bCanAttack=false;
 
     private float attackSpeed=1;
 
     public int Durability;
 
     public bool DamageFrame;
-    
 
-    
 
     void Start()
     {
@@ -34,16 +32,19 @@ public class Weapon : MonoBehaviour
     }
 
     public void Attacks(){
-        if(bCanAttack && gameObject.activeSelf){
-        bCanAttack=false;
-        StartCoroutine(RechargeAttack());
-        Debug.Log("Weapon Attacks");
-        Durability-=1;
-        if(Durability<=0){
-            StopCoroutine(RechargeAttack());
+        if(bCanAttack && gameObject.activeSelf)
+        {
+            bool bJumpAttack = PlayerInstance.Instance.PlayerController.JumpAttackIfPossible();
             bCanAttack=false;
-            StartCoroutine(BreakWeapon());
-        }   
+            if(!bJumpAttack) StartCoroutine(RechargeAttack());
+            Debug.Log("Weapon Attacks");
+            Durability-=1;
+            if(Durability<=0)
+            {
+                if (!bJumpAttack) StopCoroutine(RechargeAttack());
+                bCanAttack=false;
+                StartCoroutine(BreakWeapon());
+            }   
         }
     }
     IEnumerator RechargeAttack(){

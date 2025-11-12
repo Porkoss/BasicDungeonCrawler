@@ -77,4 +77,11 @@ public class CameraController : MonoBehaviour
         target=GameObject.FindGameObjectsWithTag("Player")[0].transform;
         bIsPlaying=true;
     }
+
+
+    public void ScreenShake()
+    {
+        print("ScreenShake");
+        GetComponentInChildren<Animator>().SetTrigger("CameraShake");
+    }
 }
